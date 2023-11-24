@@ -1,0 +1,1144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Хакатон</title>
+</head>
+<style>
+    .wrapper
+    {
+        max-width: 1200px;
+        margin: auto;
+    }
+
+    canvas
+    {
+        max-width: 400px;
+        height: 530px;
+        border: 1px solid black;
+        margin: auto;
+        display: block;
+    }
+</style>
+<body onload="Draw()">
+    <div class="wrapper">
+        <canvas id="game" width="400" height="530">
+
+        </canvas>
+    </div>
+    
+</body>
+
+<script>
+    const canvas = document.getElementById("game");
+    const ctx = canvas.getContext("2d");
+    ctx.font = "15px serif";
+    
+    let needDecision = 15
+    let decision = 0
+
+    let ChoosenValue
+    let isChoosen = false
+
+    let ChoosenIndex 
+    let ChoosenRow 
+
+    let dragStartX 
+    let dragStartY 
+
+    let resetButton = new Image()
+    resetButton.src = 'resetButton.svg'
+
+    let CellSize =30;
+
+    let isDragging = false
+
+    let mouseDown = function(event)
+    {
+        event.preventDefault()
+        console.log(event)
+        let rect = canvas.getBoundingClientRect()
+        let clickedX = event.clientX - rect.left
+        let clickedY = event.clientY - rect.top
+        console.log(clickedX)
+        console.log(clickedY)
+        ifMouseDownOnVariants(clickedX, clickedY)
+        ifMouseDownOnCrossword(clickedX, clickedY)
+        ifMouseDownOnResetButton(clickedX, clickedY)
+    }
+
+
+    canvas.onmousedown = mouseDown
+
+    let template1 = [
+            ['void', 'void', 'void', 'void', 'void', 'void', 'void', 'void', 'void', 'void', 'void', 'void', 'void'],
+            ['void', 'number', 'sign', 'number', 'equal', 'answer', 'void', 'number', 'sign', 'number', 'equal', 'answer', 'void'],
+            ['void', 'sign', 'void', 'void', 'void', 'sign', 'void', 'void', 'void', 'sign', 'void', 'void', 'void'],
+            ['void', 'number', 'sign', 'number', 'equal', 'answer', 'void', 'number', 'sign', 'number', 'equal', 'answer', 'void'],
+            ['void', 'equal', 'void', 'void', 'void', 'equal', 'void', 'sign', 'void', 'equal', 'void', 'void', 'void'],
+            ['void', 'answer', 'sign', 'number', 'equal', 'answer', 'void', 'number', 'sign', 'answer', 'equal', 'answer', 'void'],
+            ['void', 'void', 'void', 'sign', 'void', 'void', 'void', 'equal', 'void', 'void', 'void', 'sign', 'void'],
+            ['void', 'number', 'void', 'number', 'void', 'number', 'sign', 'answer', 'equal', 'answer', 'void', 'number', 'void'],
+            ['void', 'sign', 'void', 'equal', 'void', 'sign', 'void', 'void', 'void', 'sign', 'void', 'equal', 'void'],
+            ['void', 'number', 'sign', 'answer', 'equal', 'answer', 'void', 'number', 'sign', 'number', 'equal', 'answer', 'void'],
+            ['void', 'equal', 'void', 'void', 'void', 'equal', 'void', 'void', 'void', 'equal', 'void', 'void', 'void'],
+            ['void', 'answer', 'void', 'number', 'sign', 'answer', 'equal', 'answer', 'void', 'answer', 'void', 'void', 'void'],
+            ['void', 'void', 'void', 'void', 'void', 'void', 'void', 'void', 'void', 'void', 'void', 'void', 'void']
+        ]
+    let template2 = [
+            ['void', 'void', 'void', 'void', 'void', 'void', 'void', 'void', 'void', 'void', 'void', 'void', 'void'],
+            ['void', 'number', 'sign', 'number', 'equal', 'answer', 'void', 'number', 'sign', 'number', 'equal', 'answer', 'void'],
+            ['void', 'sign', 'void', 'void', 'void', 'sign', 'void', 'void', 'void', 'sign', 'void', 'void', 'void'],
+            ['void', 'number', 'sign', 'number', 'equal', 'answer', 'void', 'number', 'sign', 'number', 'equal', 'answer', 'void'],
+            ['void', 'equal', 'void', 'void', 'void', 'equal', 'void', 'sign', 'void', 'equal', 'void', 'void', 'void'],
+            ['void', 'answer', 'sign', 'number', 'equal', 'answer', 'void', 'number', 'sign', 'answer', 'equal', 'answer', 'void'],
+            ['void', 'void', 'void', 'sign', 'void', 'void', 'void', 'equal', 'void', 'void', 'void', 'sign', 'void'],
+            ['void', 'number', 'void', 'number', 'void', 'number', 'sign', 'answer', 'equal', 'answer', 'void', 'number', 'void'],
+            ['void', 'sign', 'void', 'equal', 'void', 'sign', 'void', 'void', 'void', 'sign', 'void', 'equal', 'void'],
+            ['void', 'number', 'sign', 'answer', 'equal', 'answer', 'void', 'number', 'sign', 'number', 'equal', 'answer', 'void'],
+            ['void', 'equal', 'void', 'void', 'void', 'equal', 'void', 'void', 'void', 'equal', 'void', 'void', 'void'],
+            ['void', 'answer', 'void', 'number', 'sign', 'answer', 'equal', 'answer', 'void', 'answer', 'void', 'void', 'void'],
+            ['void', 'void', 'void', 'void', 'void', 'void', 'void', 'void', 'void', 'void', 'void', 'void', 'void']
+        ]
+
+    const simpleNumbers = new Set([0, 2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 53, 59, 61, 67, 71, 73, 79, 83, 89, 97]);
+    const signs = new Set(['+', '-', '/', '*']);
+    let variants = []
+    let choosenVariansts = []
+
+    function Draw()
+    {
+        ctx.fillStyle = "#3caac6"
+        ctx.fillRect(0, 0, 400, 530)
+        ctx.fillStyle = "white"
+
+        
+        for (let i = 1; i < template1.length-1; i++)
+        {
+            for (let j = 1; j < template1.length-1; j++)
+            {
+                if (template1[i][j] == 'equal')
+                {
+                    ctx.fillStyle = "White"
+                    ctx.fillRect(j*CellSize, i*CellSize, CellSize, CellSize)
+                    ctx.fillStyle = "#3caac6"
+                    ctx.fillText('=', 10+j*CellSize, 20+i*CellSize)
+                }
+            }
+        }
+
+        generateAloneNumberWithSign( 1, 1, true, true)
+        generateAloneNumberWithSign( 7, 1, false, true)
+        generateAloneNumberWithSign( 1, 7, true, false)
+        generateAloneNumberWithSign( 11, 5, true, false)
+        generateAloneNumberWithSign( 5, 7, true, true)
+
+        generteSecondNumberWithAnswer( 1, 1, true, true)
+        generteSecondNumberWithAnswer( 7, 1, false, true)
+        generteSecondNumberWithAnswer( 1, 7, true, false)
+        generteSecondNumberWithAnswer( 11, 5, true, false)
+        generteSecondNumberWithAnswer( 5, 7, true, true)
+
+        generateSecondaryVerticalExpression(5, 1)
+        generateSecondaryVerticalExpression(9, 7)
+
+        generateIntermediateNumberAndSign(5,3, false, true)
+        generateIntermediateNumberAndSign(5,5, false, true)
+        generateIntermediateNumberAndSign(5,9, false, true)
+        generateIntermediateNumberAndSign(11,9, false, true)
+        generateIntermediateNumberAndSign(3, 9, true, false)
+
+        generateAloneAnswer(11, 3)
+        generateAloneAnswer(7, 11)
+
+        generateIntermediateNumberAndSign(7, 11, false, true)
+
+        generateAloneAnswer(7, 3)
+        generateIntermediateNumberAndSign(7, 7, true, false)
+        generateIntermediateNumberAndSign(11, 5, false, true)
+        generateIntermediateNumberAndSign(11, 3, false, true)
+
+        template1[1][9] = 'number'
+        generateIntermediateNumberAndSign(9, 5, true, false)
+        template1[1][7] = 'number'
+        generateIntermediateNumberAndSign(11, 1, false, true)
+
+        
+        addVariantsAndHideCells()
+        drawBorder()
+
+        ctx.fillStyle = "White"
+        ctx.fillRect(0, template1.length*CellSize, 600, 5)
+
+        drawVariants()
+        drawButtonReset()
+        
+        for (let i = 0; i < template1.length; i++)
+        {
+            for (let j = 0; j < template1.length; j++)
+                {
+                    template2[i][j] = template1[i][j] 
+                }
+        }
+
+        for (let i = 0; i < template1.length; i++)
+        {
+            for (let j = 0; j < template1.length; j++)
+                {
+                    checkVictory(i,j)  
+                }
+        }
+    }
+
+    function checkVictory(x, y)
+    {
+        checkHorizontalDecision(x, y)
+        checkVerticalDecision(x, y)
+        if(needDecision == decision)
+        {
+            alert('You win!')
+        }
+
+        console.log('Примеров решено ' + decision)
+        
+    }
+
+    function checkHorizontalDecision(x, y)
+    {
+        if (template1[y][x+1] == 'equal')
+        {
+            switch(template1[y][x-1]) {
+                case '-': 
+                    if (template1[y][x-2] - template1[y][x] == template1[y][x+2])
+                    {
+                        decision+=1
+                        template1[y][x-1] = 'done'
+                    }
+                    break
+                case '+':  
+                    if (template1[y][x-2] + template1[y][x] == template1[y][x+2])
+                    {
+                        decision+=1
+                        template1[y][x-1] = 'done'
+                    }
+                    break
+                case '/':  
+                    if (template1[y][x-2] / template1[y][x] == template1[y][x+2])
+                    {
+                        decision+=1
+                        template1[y][x-1] = 'done'
+                    }
+                    break
+                case '*':  
+                    if (template1[y][x-2] * template1[y][x] == template1[y][x+2])
+                    {
+                        decision+=1
+                        template1[y][x-1] = 'done'
+                    }
+                    break
+            }
+        }
+
+        if (template1[y][x+2] == 'equal')
+        {
+            switch(template1[y][x]) {
+                case '-': 
+                    if (template1[y][x-1] - template1[y][x+1] == template1[y][x+3])
+                    {
+                        decision+=1
+                        template1[y][x] = 'done'
+                    }
+                    break
+                case '+':  
+                    if (template1[y][x-1] + template1[y][x+1] == template1[y][x+3])
+                    {
+                        decision+=1
+                        template1[y][x] = 'done'
+                    }
+                    break
+                case '/':  
+                    if (template1[y][x-1] / template1[y][x+1] == template1[y][x+3])
+                    {
+                        decision+=1
+                        template1[y][x] = 'done'
+                    }
+                    break
+                case '*':  
+                    if (template1[y][x-1] * template1[y][x+1] == template1[y][x+3])
+                    {
+                        decision+=1
+                        template1[y][x] = 'done'
+                    }
+                    break
+            }
+        }
+
+        if (template1[y][x+3] == 'equal')
+        {
+            switch(template1[y][x+1]) {
+                case '-': 
+                    if (template1[y][x] - template1[y][x+2] == template1[y][x+4])
+                    {
+                        decision+=1
+                        template1[y][x] = 'done'
+                    }
+                    break
+                case '+':  
+                    if (template1[y][x] + template1[y][x+2] == template1[y][x+4])
+                    {
+                        decision+=1
+                        template1[y][x] = 'done'
+                    }
+                    break
+                case '/':  
+                    if (template1[y][x] / template1[y][x+2] == template1[y][x+4])
+                    {
+                        decision+=1
+                        template1[y][x] = 'done'
+                    }
+                    break
+                case '*':  
+                    if (template1[y][x] * template1[y][x+2] == template1[y][x+4])
+                    {
+                        decision+=1
+                        template1[y][x] = 'done'
+                    }
+                    break
+            }
+        }
+
+        if (template1[y][x-1] == 'equal')
+        {
+            switch(template1[y][x-3]) {
+                case '-': 
+                    if (template1[y][x-4] - template1[y][x-2] == template1[y][x])
+                    {
+                        decision+=1
+                        template1[y][x] = 'done'
+                    }
+                    break
+                case '+':  
+                    if (template1[y][x-4] + template1[y][x-2] == template1[y][x])
+                    {
+                        decision+=1
+                        template1[y][x] = 'done'
+                    }
+                    break
+                case '/':  
+                    if (template1[y][x-4] / template1[y][x-2] == template1[y][x])
+                    {
+                        decision+=1
+                        template1[y][x] = 'done'
+                    }
+                    break
+                case '*':  
+                    if (template1[y][x-4] * template1[y][x-2] == template1[y][x])
+                    {
+                        decision+=1
+                        template1[y][x] = 'done'
+                    }
+                    break
+            }
+        }
+    }
+
+    function checkVerticalDecision(x, y)
+    {
+        if (y < 12 && y > 1)
+        {
+            if (template1[y+1][x] == 'equal')
+            {
+                switch(template1[y-1][x]) {
+                    case '-': 
+                        if (template1[y-2][x] - template1[y][x] == template1[y+2][x])
+                        {
+                            decision+=1
+                            template1[y-1][x] = 'done'
+                        }
+                        break
+                    case '+':  
+                        if (template1[y-2][x] + template1[y][x] == template1[y+2][x])
+                        {
+                            decision+=1
+                            template1[y-1][x] = 'done'
+                        }
+                        break
+                    case '/':  
+                        if (template1[y-2][x] / template1[y][x] == template1[y+2][x])
+                        {
+                            decision+=1
+                            template1[y-1][x] = 'done'
+                        }
+                        break
+                    case '*':  
+                        if (template1[y-2][x] * template1[y][x] == template1[y+2][x])
+                        {
+                            decision+=1
+                            template1[y-1][x] = 'done'
+                        }
+                        break
+                }
+            }
+        }
+
+        if (y < 11)
+        {
+            if (template1[y+2][x] == 'equal')
+            {
+                switch(template1[y][x]) {
+                    case '-': 
+                        if (template1[y-1][x] - template1[y+1][x] == template1[y+3][x])
+                        {
+                            decision+=1
+                            template1[y][x] = 'done'
+                        }
+                        break
+                    case '+':  
+                        if (template1[y-1][x] + template1[y+1][x] == template1[y+3][x])
+                        {
+                            decision+=1
+                            template1[y][x] = 'done'
+                        }
+                        break
+                    case '/':  
+                        if (template1[y-1][x] / template1[y+1][x] == template1[y+3][x])
+                        {
+                            decision+=1
+                            template1[y][x] = 'done'
+                        }
+                        break
+                    case '*':  
+                        if (template1[y-1][x] * template1[y+1][x] == template1[y+3][x])
+                        {
+                            decision+=1
+                            template1[y][x] = 'done'
+                        }
+                        break
+                }
+            }
+        }
+
+        if (y < 10)
+        {
+            if (template1[y+3][x] == 'equal')
+            {
+                switch(template1[y+1][x]) {
+                    case '-': 
+                        if (template1[y][x] - template1[y+2][x] == template1[y+4][x])
+                        {
+                            decision+=1
+                            template1[y][x] = 'done'
+                        }
+                        break
+                    case '+':  
+                        if (template1[y][x] + template1[y+2][x] == template1[y+4][x])
+                        {
+                            decision+=1
+                            template1[y][x] = 'done'
+                        }
+                        break
+                    case '/':  
+                        if (template1[y][x] / template1[y+2][x] == template1[y+4][x])
+                        {
+                            decision+=1
+                            template1[y][x] = 'done'
+                        }
+                        break
+                    case '*':  
+                        if (template1[y][x] * template1[y+2][x] == template1[y+4][x])
+                        {
+                            decision+=1
+                            template1[y][x] = 'done'
+                        }
+                        break
+                }
+            }
+        }
+
+        if (y > 3 )
+        {
+            if (template1[y-1][x] == 'equal')
+            {
+                switch(template1[y-3][x]) {
+                    case '-': 
+                        if (template1[y-4][x] - template1[y-2][x] == template1[y][x])
+                        {
+                            decision+=1
+                            template1[y][x] = 'done'
+                        }
+                        break
+                    case '+':  
+                        if (template1[y-4][x] + template1[y-2][x] == template1[y][x])
+                        {
+                            decision+=1
+                            template1[y][x] = 'done'
+                        }
+                        break
+                    case '/':  
+                        if (template1[y-4][x] / template1[y-2][x] == template1[y][x])
+                        {
+                            decision+=1
+                            template1[y][x] = 'done'
+                        }
+                        break
+                    case '*':  
+                        if (template1[y-4][x] * template1[y-2][x] == template1[y][x])
+                        {
+                            decision+=1
+                            template1[y][x] = 'done'
+                        }
+                        break
+                }
+            }
+        }
+    }
+    
+    function drawResetCrossword()
+    {
+        for (let i = 0; i < template1.length; i++)
+        {
+            for (let j = 0; j < template1.length; j++)
+                {
+                    template1[i][j] = template2[i][j]
+                }
+        }
+
+        for (let i = 1; i < template1.length-1; i++)
+        {
+            for (let j = 1; j < template1.length-1; j++)
+            {
+                if (template1[i][j] != 'void' && template1[i][j] != 'hidden' && template1[i][j] != 'equal')
+                {
+                    ctx.fillStyle = "White"
+                    ctx.fillRect(j*CellSize, i*CellSize, CellSize, CellSize)
+                    ctx.fillStyle = "#3caac6"
+                    ctx.fillText(template1[i][j], 10+j*CellSize, 20+i*CellSize)
+                }
+
+                if (template1[i][j] == 'hidden')
+                {
+                    ctx.fillStyle = "White"
+                    ctx.fillRect(j*CellSize, i*CellSize, CellSize, CellSize)
+                }
+
+                if (template1[i][j] == 'equal')
+                {
+                    ctx.fillStyle = "White"
+                    ctx.fillRect(j*CellSize, i*CellSize, CellSize, CellSize)
+                    ctx.fillStyle = "#3caac6"
+                    ctx.fillText('=', 10+j*CellSize, 20+i*CellSize)
+                }
+
+                
+            }
+        }
+
+        drawBorder()
+
+    }
+
+    function drawButtonReset()
+    {
+        ctx.fillStyle = "White"
+        ctx.drawImage(resetButton,340, 410, 50, 50)
+    }
+
+    function ifMouseDownOnResetButton(clickedX, clickedY)
+    {
+        if(clickedX > 340 && clickedX < 390 && clickedY > 410 && clickedY < 460) 
+        {
+            for (let i = 0; i < choosenVariansts.length; i++)
+            {
+                variants.push(choosenVariansts[i])
+            }
+            choosenVariansts= []
+            decision = 0
+            drawVariants()
+            drawResetCrossword()
+        }
+    }
+    
+    function ifMouseDownOnVariants(clickedX, clickedY)
+    {
+        for (let i = 0; i < variants.length; i++)
+        {
+            if (i < 10)
+            {
+                if(clickedX > CellSize+i*CellSize && clickedX < CellSize+(i+1)*CellSize && clickedY > 12.5+(template1.length)*CellSize && clickedY < 12.5+(template1.length+1)*CellSize) 
+                {
+                    drawVariants()
+                    DrawBorderChoosenVariant(i, 0)
+                    ChoosenValue = variants[i]
+                    console.log(ChoosenValue)
+                    isChoosen = true
+                    ChoosenIndex = i
+                    ChoosenRow = 0
+                }
+            }
+            else if (i < 20)
+            {
+                if(clickedX > CellSize+(i-10)*CellSize && clickedX < CellSize+(i-9)*CellSize && clickedY > 10+12.5+(template1.length+1)*CellSize && clickedY < 10+12.5+(template1.length+2)*CellSize) 
+                {
+                    drawVariants()
+                    DrawBorderChoosenVariant(i-10, 1)
+                    ChoosenValue = variants[i]
+                    console.log(ChoosenValue)
+                    isChoosen = true
+                    ChoosenIndex = i
+                    ChoosenRow = 0
+                }
+            }
+            else
+            {
+                if(clickedX > CellSize+(i-20)*CellSize && clickedX < CellSize+(i-19)*CellSize && clickedY > 15+12.5+(template1.length+2)*CellSize && clickedY < 15+12.5+(template1.length+3)*CellSize) 
+                {
+                    drawVariants()
+                    DrawBorderChoosenVariant(i-20, 2)
+                    ChoosenValue = variants[i]
+                    console.log(ChoosenValue)
+                    isChoosen = true
+                    ChoosenIndex = i
+                    ChoosenRow = 0
+                }
+            }
+        }
+    }   
+
+    function ifMouseDownOnCrossword(clickedX, clickedY)
+    {
+        for (let i = 1; i < template1.length-1; i++)
+        {
+            for (let j = 1; j < template1.length-1; j++)
+            {
+                if (clickedX > j*CellSize && clickedX < (j+1)*CellSize && clickedY >i*CellSize && clickedY < (i+1)*CellSize)
+                {
+                    console.log('You clicked on ' + template1[i][j])
+                    if (isChoosen && template1[i][j] == 'hidden')
+                    {
+                        template1[i][j] = ChoosenValue
+                        DrawCellWithChoosen(j,i)
+                        drawBorder()
+                        isChoosen = false
+                        choosenVariansts.push(ChoosenValue)
+                        ChoosenValue = 0
+                        variants.splice(ChoosenIndex, 1)
+                        drawVariants()
+                        checkVictory(j, i)
+                    }
+                }
+            }
+        }
+    }
+
+    function ClearVariantsSector()
+    {
+        ctx.fillStyle = "#3caac6"
+        ctx.fillRect(0, template1.length*CellSize+5, 335, 530)
+        ctx.fillStyle = "white"
+    }
+
+    function DrawClearVariantsCell(index, row)
+    {
+        ctx.fillStyle = "#3caac6"
+        ctx.fillRect(CellSize+index*CellSize, (5*row)+10+(template1.length+row)*CellSize, CellSize, CellSize)
+    }
+
+    function DrawBorderChoosenVariant( index, row)
+    {
+        ctx.strokeStyle = "Green"
+        ctx.strokeRect(CellSize+index*CellSize, (5*row)+10+(template1.length+row)*CellSize, CellSize, CellSize)
+    }
+
+    function drawBorder()
+    {
+        ctx.fillStyle = "Black"
+
+        for (let i = 1; i < template1.length-1; i++)
+        {
+            for (let j = 1; j < template1.length-1; j++)
+            {
+                if (template1[i][j] != 'void')
+                {
+                    ctx.strokeStyle = "Gray"
+                    ctx.strokeRect(j*CellSize, i*CellSize, CellSize, CellSize)
+                }
+            }
+        }
+
+    }
+
+    function drawVariants()
+    {
+        ClearVariantsSector()
+        for (let i = 0; i < variants.length; i++)
+        {   
+            if (i < 10)
+            {
+                DrawCellVariant(i, i, 0)
+            }
+            else if (i < 20)
+            {
+                DrawCellVariant(i, i - 10, 1)
+            }
+            else
+            {
+                DrawCellVariant(i, i - 20, 2)
+            }
+            
+        }
+    }
+
+    function addVariantsAndHideCells()
+    {
+        do{
+            for (let i = 1; i < template1.length-1; i++)
+            {
+                for (let j = 1; j < template1.length-1; j++)
+                {
+                    if (typeof(template1[i][j]) == 'number' || signs.has(template1[i][j]))
+                    {
+                        randomValue = Math.floor(Math.random() * 101)
+                        if (randomValue < 11)
+                        {
+                            variants.push(template1[i][j])
+                            ctx.fillStyle = "White"
+                            ctx.fillRect(j*CellSize, i*CellSize, CellSize, CellSize)
+                            template1[i][j] = 'hidden'
+                        }
+                    }
+                    
+                }
+            }
+        } while(variants.length < 20)
+    }
+
+    function DrawCellWithChoosen(x, y)
+    {
+        ctx.fillStyle = "White"
+        ctx.fillRect(x*CellSize, y*CellSize, CellSize, CellSize)
+        ctx.fillStyle = "Black"
+        ctx.fillText(template1[y][x], getXPos(template1[y][x])+x*CellSize, 20+y*CellSize)
+        ctx.fillStyle = "White"
+    }
+
+    function DrawCell(x, y)
+    {
+        ctx.fillStyle = "White"
+        ctx.fillRect(x*CellSize, y*CellSize, CellSize, CellSize)
+        ctx.fillStyle = "#3caac6"
+        ctx.fillText(template1[y][x], getXPos(template1[y][x])+x*CellSize, 20+y*CellSize)
+        ctx.fillStyle = "White"
+    }
+
+    function DrawCellVariant(value , index, row)
+    {
+        ctx.fillStyle = "White"
+        ctx.fillRect(CellSize+index*CellSize, (5*row)+10+(template1.length+row)*CellSize, CellSize, CellSize)
+        ctx.fillStyle = "#3caac6"
+        ctx.fillText(variants[value], getXPos(variants[value])+(index+1)*CellSize, (template1.length+row)*CellSize+30+(5*row))
+        ctx.strokeStyle = "Gray"
+        ctx.strokeRect(CellSize+index*CellSize, (5*row)+10+(template1.length+row)*CellSize, CellSize, CellSize)
+    }
+
+    function generateAloneAnswer(xAnsw, yAnsw)
+    {
+        template1[yAnsw][xAnsw] = Math.floor(Math.random() * 99) + 1
+        DrawCell(xAnsw, yAnsw)
+    }
+
+    function generateIntermediateNumberAndSign(xAnsw, yAnsw, isVertical, isHorisontal)
+    {
+        if (isVertical)
+        {
+            if (template1[yAnsw-2][xAnsw] == 'number' || template1[yAnsw-2][xAnsw] == 'answer')
+            {
+                if (template1[yAnsw-4][xAnsw] % template1[yAnsw][xAnsw] == 0)
+                {
+                    template1[yAnsw-3][xAnsw] = '/'
+                } 
+                else if (template1[yAnsw][xAnsw] % template1[yAnsw-4][xAnsw] == 0)
+                {
+                    template1[yAnsw-3][xAnsw] = '*'
+                }
+                else if (template1[yAnsw][xAnsw] > template1[yAnsw-4][xAnsw])
+                {
+                    template1[yAnsw-3][xAnsw] = '+'
+                }
+                else 
+                {
+                    template1[yAnsw-3][xAnsw] = '-'
+                }
+                    DrawCell(xAnsw,yAnsw-3)
+
+                switch(template1[yAnsw-3][xAnsw]) {
+                    case '-': 
+                        template1[yAnsw-2][xAnsw] = template1[yAnsw-4][xAnsw] - template1[yAnsw][xAnsw]
+                        break
+                    case '+':  
+                        template1[yAnsw-2][xAnsw] = template1[yAnsw][xAnsw] - template1[yAnsw-4][xAnsw]
+                        break
+                    case '/':  
+                        template1[yAnsw-2][xAnsw] = template1[yAnsw-4][xAnsw] / template1[yAnsw][xAnsw]
+                        break
+                    case '*':  
+                        template1[yAnsw-2][xAnsw] = template1[yAnsw][xAnsw] / template1[yAnsw-4][xAnsw]
+                        break
+                }
+                DrawCell(xAnsw,yAnsw-2)
+            }
+            else
+            {
+                if (template1[yAnsw-2][xAnsw] * template1[yAnsw][xAnsw] < 100)
+                {
+                    template1[yAnsw-3][xAnsw] = '/'
+                } 
+                else if (template1[yAnsw][xAnsw] % template1[yAnsw-2][xAnsw] == 0)
+                {
+                    template1[yAnsw-3][xAnsw] = '*'
+                }
+                else if (template1[yAnsw][xAnsw] > template1[yAnsw-3][xAnsw])
+                {
+                    template1[yAnsw-3][xAnsw] = '+'
+                }
+                else 
+                {
+                    template1[yAnsw-3][xAnsw] = '-'
+                }
+                    DrawCell(xAnsw,yAnsw-3)
+
+                switch(template1[yAnsw-3][xAnsw]) {
+                    case '-': 
+                        template1[yAnsw-4][xAnsw] = template1[yAnsw-2][xAnsw] + template1[yAnsw][xAnsw]
+                        break
+                    case '+':  
+                        template1[yAnsw-4][xAnsw] = template1[yAnsw][xAnsw] - template1[yAnsw-2][xAnsw]
+                        break
+                    case '/':  
+                        template1[yAnsw-4][xAnsw] = template1[yAnsw-2][xAnsw] * template1[yAnsw][xAnsw]
+                        break
+                    case '*':  
+                        template1[yAnsw-4][xAnsw] = template1[yAnsw][xAnsw] / template1[yAnsw-2][xAnsw]
+                        break
+                }
+                DrawCell(xAnsw,yAnsw-4)
+            }
+        }
+
+        if (isHorisontal)
+        {
+            if (template1[yAnsw][xAnsw-2] == 'number' || template1[yAnsw][xAnsw-2] == 'answer')
+            {
+                if (template1[yAnsw][xAnsw-4] % template1[yAnsw][xAnsw] == 0)
+                {
+                    template1[yAnsw][xAnsw-3] = '/'
+                } 
+                else if (template1[yAnsw][xAnsw] % template1[yAnsw][xAnsw-4] == 0)
+                {
+                    template1[yAnsw][xAnsw-3] = '*'
+                }
+                else if (template1[yAnsw][xAnsw] > template1[yAnsw][xAnsw-4])
+                {
+                    template1[yAnsw][xAnsw-3] = '+'
+                }
+                else 
+                {
+                    template1[yAnsw][xAnsw-3] = '-'
+                }
+                    DrawCell(xAnsw-3,yAnsw)
+
+                switch(template1[yAnsw][xAnsw-3]) {
+                    case '-': 
+                        template1[yAnsw][xAnsw-2] = template1[yAnsw][xAnsw-4] - template1[yAnsw][xAnsw]
+                        break
+                    case '+':  
+                        template1[yAnsw][xAnsw-2] = template1[yAnsw][xAnsw] - template1[yAnsw][xAnsw-4]
+                        break
+                    case '/':  
+                        template1[yAnsw][xAnsw-2] = template1[yAnsw][xAnsw-4] / template1[yAnsw][xAnsw]
+                        break
+                    case '*':  
+                        template1[yAnsw][xAnsw-2] = template1[yAnsw][xAnsw] / template1[yAnsw][xAnsw-4]
+                        break
+                }
+                DrawCell(xAnsw-2,yAnsw)
+            }
+            else
+            {
+                if (template1[yAnsw][xAnsw-2] * template1[yAnsw][xAnsw] < 100)
+                {
+                    template1[yAnsw][xAnsw-3] = '/'
+                } 
+                else if (template1[yAnsw][xAnsw] % template1[yAnsw][xAnsw-2] == 0)
+                {
+                    template1[yAnsw][xAnsw-3] = '*'
+                }
+                else if (template1[yAnsw][xAnsw] > template1[yAnsw][xAnsw-3])
+                {
+                    template1[yAnsw][xAnsw-3] = '+'
+                }
+                else 
+                {
+                    template1[yAnsw][xAnsw-3] = '-'
+                }
+                    DrawCell(xAnsw-3,yAnsw)
+
+                switch(template1[yAnsw][xAnsw-3]) {
+                    case '-': 
+                        template1[yAnsw][xAnsw-4] = template1[yAnsw][xAnsw-2] + template1[yAnsw][xAnsw]
+                        break
+                    case '+':  
+                        template1[yAnsw][xAnsw-4] = template1[yAnsw][xAnsw] - template1[yAnsw][xAnsw-2]
+                        break
+                    case '/':  
+                        template1[yAnsw][xAnsw-4] = template1[yAnsw][xAnsw-2] * template1[yAnsw][xAnsw]
+                        break
+                    case '*':  
+                        template1[yAnsw][xAnsw-4] = template1[yAnsw][xAnsw] / template1[yAnsw][xAnsw-2]
+                        break
+                }
+                ctx.fillText(template1[yAnsw][xAnsw-4], getXPos(template1[yAnsw][xAnsw-4])+(xAnsw-4)*CellSize, 20+(yAnsw)*CellSize)
+                DrawCell(xAnsw-4,yAnsw)
+            }
+        }
+    } 
+    
+    function generateSecondaryVerticalExpression(x, y)
+    {
+        if(template1[y][x] < 20 && template1[y][x] != 0) 
+            {
+                template1[y+1][x] = generateSign(false, true)
+            }
+        else
+            {
+                if (simpleNumbers.has(template1[y][x]))
+                {
+                    template1[y+1][x] = generateSign(true, true)
+                }
+                else
+                {
+                    template1[y+1][x] = generateSign(true, false)
+                }
+                
+            }
+            DrawCell(x,y+1)
+
+            switch(template1[y+1][x]) {
+                case '-': 
+                    template1[y+2][x] = Math.floor(Math.random() * template1[y][x])
+                    template1[y+4][x] = template1[y][x] - template1[y+2][x]
+                    break
+                case '+':  
+                    template1[y+2][x] = Math.floor(Math.random() * (99-template1[y][x]))
+                    template1[y+4][x] = template1[y][x] + template1[y+2][x]
+                    break
+                case '/':  
+                    do 
+                    {
+                        randomValue = Math.floor(Math.random() * 19)+1
+                    }
+                    while (template1[y][x] % randomValue != 0) 
+                    template1[y+2][x] = randomValue
+                    template1[y+4][x] = template1[y][x] / template1[y+2][x]
+                    break
+                case '*':  
+                    do 
+                    {
+                        randomValue = Math.floor(Math.random() * 20)
+                    }
+                    while (template1[y][x] * randomValue > 99) 
+                    template1[y+2][x] = randomValue
+                    template1[y+4][x] = template1[y][x] * template1[y+2][x]
+                    break
+                }
+            DrawCell(x,y+2)
+            DrawCell(x,y+4)
+    }
+
+    function generteSecondNumberWithAnswer(x, y, isVertical, isHorisontal)
+    {
+        if(isVertical)
+        {
+            switch(template1[y+1][x]) {
+                case '-': 
+                    template1[y+2][x] = Math.floor(Math.random() * template1[y][x])
+                    template1[y+4][x] = template1[y][x] - template1[y+2][x]
+                    break
+                case '+':  
+                    template1[y+2][x] = Math.floor(Math.random() * (99-template1[y][x]))
+                    template1[y+4][x] = template1[y][x] + template1[y+2][x]
+                    break
+                case '/':  
+                    do 
+                    {
+                        randomValue = Math.floor(Math.random() * 19) + 1
+                    }
+                    while (template1[y][x] % randomValue != 0) 
+                    template1[y+2][x] = randomValue
+                    template1[y+4][x] = template1[y][x] / template1[y+2][x]
+                    break
+                case '*':  
+                    do 
+                    {
+                        randomValue = Math.floor(Math.random() * 19)+1
+                    }
+                    while (template1[y][x] * randomValue > 99) 
+                    template1[y+2][x] = randomValue
+                    template1[y+4][x] = template1[y][x] * template1[y+2][x]
+                    break
+                }
+                DrawCell(x,y+2)
+                DrawCell(x,y+4)
+        }
+
+        if(isHorisontal)
+        {
+            switch(template1[y][x+1]) {
+                case '-': 
+                    template1[y][x+2] = Math.floor(Math.random() * template1[y][x])
+                    template1[y][x+4] = template1[y][x] - template1[y][x+2]
+                    break
+                case '+':  
+                    template1[y][x+2] = Math.floor(Math.random() * (99-template1[y][x]))
+                    template1[y][x+4] = template1[y][x] + template1[y][x+2]
+                    break
+                case '/':  
+                    do 
+                    {
+                        randomValue = Math.floor(Math.random() * 19) + 1
+                    }
+                    while (template1[y][x] % randomValue != 0) 
+                    template1[y][x+2] = randomValue
+                    template1[y][x+4] = template1[y][x] / template1[y][x+2]
+                    break
+                case '*':  
+                    do 
+                    {
+                        randomValue = Math.floor(Math.random() * 20)
+                    }
+                    while (template1[y][x] * randomValue > 99) 
+                    template1[y][x+2] = randomValue
+                    template1[y][x+4] = template1[y][x] * template1[y][x+2]
+                    break
+                }
+            DrawCell(x+2,y)
+            DrawCell(x+4,y)
+        }
+    }
+    
+    function generateAloneNumberWithSign(x, y, isVertical, isHorisontal)
+    {
+        template1[y][x] = Math.floor(Math.random() * 99) + 1
+        DrawCell(x,y)
+        if (isVertical)
+        {
+            if(template1[y][x] < 20 && template1[y][x] != 0) 
+                {
+                    template1[y+1][x] = generateSign(false, true)
+                }
+            else
+                {
+                    if (simpleNumbers.has(template1[y][x]))
+                    {
+                        template1[y+1][x] = generateSign(true, true)
+                    }
+                    else
+                    {
+                        template1[y+1][x] = generateSign(true, false)
+                    }
+                    
+                }
+                DrawCell(x,y+1)
+        }
+
+        if (isHorisontal)
+        {
+            if(template1[y][x] < 20 && template1[y][x] != 0) 
+                {
+                    template1[y][x+1] = generateSign(false, true)
+                }
+            else
+                {
+                    if (simpleNumbers.has(template1[y][x]))
+                    {
+                        template1[y][x+1] = generateSign(true, true)
+                    }
+                    else
+                    {
+                        template1[y][x+1] = generateSign(true, false)
+                    }
+                    
+                }
+                DrawCell(x+1,y)
+        }
+        
+    }
+
+    function generateSign(withoutMultiply, withoutDivision)
+    {
+        if (withoutMultiply == true && withoutDivision == true)
+        {
+            do 
+            {
+                randomValue = Math.floor(Math.random() * 4)
+            }
+            while (randomValue == 2 || randomValue == 3) 
+        }
+        else if (withoutMultiply == true)
+        {
+            do 
+            {
+                randomValue = Math.floor(Math.random() * 4)
+            }
+            while (randomValue == 2) 
+        }
+        else if (withoutDivision == true)
+        {
+            do 
+            {
+                randomValue = Math.floor(Math.random() * 4)
+            }
+            while (randomValue == 3) 
+        } 
+        else
+        {
+            randomValue = Math.floor(Math.random() * 4) 
+        }
+
+        switch(randomValue) {
+            case 0: 
+                return '+'
+            case 1:  
+                return '-'
+            case 2:  
+                return '*'
+            case 3:  
+                return '/'
+        }
+    }
+    
+    function getXPos(n) {
+   for(var i = 0; n > 1; i++) {
+      n /= 10;
+   }
+   switch(i+1) {
+        case 1: 
+            return 10
+        case 2:  
+            return 7.5
+        case 3:  
+            return 5
+        default: 
+            return 2.5
+    }
+}
+
+function getOffset(el) {
+  const rect = el.getBoundingClientRect();
+  return {
+    left: rect.left + window.scrollX,
+    top: rect.top + window.scrollY
+  };
+}
+</script>
+</html>
