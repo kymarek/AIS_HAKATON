@@ -1,0 +1,1538 @@
+
+<!-- saved from url=(0036)https://umka.aisgorod.ru/Home/Abacus -->
+<html style="min-height: 100vh;"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <script src="./Умка _ Абакус_files/jquery"></script>
+
+    <link href="./Умка _ Абакус_files/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <script src="./Умка _ Абакус_files/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+    <script src="./Умка _ Абакус_files/site.js"></script>
+    <script type="text/javascript" src="./Умка _ Абакус_files/jquery.js"></script>
+    
+    <link rel="stylesheet" type="text/css" href="./Умка _ Абакус_files/Home.css">
+    <link rel="stylesheet" type="text/css" href="./Умка _ Абакус_files/style.min.css">
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+    <meta name="msapplication-TileColor" content="#ffffff">
+    <meta name="theme-color" content="#ffffff">
+
+    <!--<base href="/teacher/">-->
+    <!--<base href=".">--><base href=".">
+    <title>Умка | Абакус</title>
+</head>
+<body onload="Draw()">
+    <section class="bg-wrapper">
+        <div class="header-wrapper">
+            <div class="header">
+                <input id="toggle" type="checkbox">
+                <label for="toggle" class="hamburger">
+                    <div class="top-bun"></div>
+                    <div class="meat"></div>
+                    <div class="bottom-bun"></div>
+                </label>
+                <div class="nav">
+                    <div class="nav-wrapper">
+                        <nav>
+                            <a href="https://umka.aisgorod.ru/" class="nav-item   ">Тренажёры</a><br>
+                            <a href="https://umka.aisgorod.ru/Home/LogOut" class="nav-item">Выйти</a><br>
+                        </nav>
+                    </div>
+                </div>
+
+                <div class="menu-logo">
+                    <a class="header-logo" aria-label="МегаУмка" href="https://umka.aisgorod.ru/">
+                        <img src="./Умка _ Абакус_files/logo.svg" alt="Логотип МегаУмка">
+                    </a>
+                </div>
+                <div class="user-label">
+                    <img src="./Умка _ Абакус_files/user-face.svg" alt="Пользователь">
+                    <span class="user-name">Потом придумаем </span>
+                </div>
+            </div>
+        </div>
+        <div class="content-box">
+            
+
+<style>
+    .table > thead > tr > th, .table > tbody > tr > th, .table > tfoot > tr > th, .table > thead > tr > td, .table > tbody > tr > td, .table > tfoot > tr > td {
+        padding: 8px;
+        line-height: 1.42857143;
+        vertical-align: top;
+        border-top: 1px solid #ddd;
+    }
+
+    .abacus .abacus_cell .abacus_cell-content {
+        -webkit-transition: transform .3s ease 0s;
+        -moz-transition: transform .3s ease 0s;
+        -o-transition: transform .3s ease 0s;
+        -ms-transition: transform .3s ease 0s;
+        transition: transform .3s ease 0s;
+        background: transparent;
+        background-repeat: no-repeat;
+        background-position: 50%;
+        background-size: 100% 100%;
+        -webkit-background-size: 100% 100%;
+        -moz-background-size: 100% 100%;
+        -o-background-size: 100% 100%;
+        position: relative;
+        width: 100%;
+        height: 30px;
+    }
+
+    .abacus .abacus_cell {
+        padding: 0;
+        position: relative;
+    }
+
+        .abacus .abacus_cell.down .abacus_cell-content {
+            background-image: url(data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTQzIiBoZWlnaHQ9IjQ4IiB2aWV3Qm94PSIwIDAgMTQzIDQ4IiBmaWxsPSJub25lIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPg0KPHBhdGggZmlsbC1ydWxlPSJldmVub2RkIiBjbGlwLXJ1bGU9ImV2ZW5vZGQiIGQ9Ik0zLjM0MDk4IDMxLjM1MjdMMzMuNTAyMyA0NS45Njg1QzM0LjYzNTYgNDYuNzgyMSAzNS45NzIyIDQ3LjIxNzkgMzcuMzM3OSA0Ny4yMTc5TDEwOS4zNzEgNDcuMjE3OUMxMTAuNzY1IDQ3LjIxNzkgMTEyLjEwMiA0Ni43ODIxIDExMy4yMDYgNDUuOTY4NUwxMzguOTggMjkuMDU3MkMxNDIuNTI1IDI2Ljc2MTcgMTQzLjMwOSAyMS4yNDA4IDEzOS4zMjkgMTguMzM1MUwxMDkuMDUxIDEuMjQ5NDdDMTA3Ljk0NyAwLjQzNTg2NSAxMDYuNjEgNS44NDAwNmUtMDYgMTA1LjIxNSA1LjcxODEzZS0wNkwzOS44MDc4IDBDMzguNDQyMSAtMS4xOTM5MmUtMDcgMzcuMTYzNiAwLjUyMzAzIDM2LjAwMTMgMS4yNDk0NkwzLjY4OTY4IDIwLjY1OTdDMC4xNDQ3IDIyLjkyNjEgLTAuNjM5ODUzIDI4LjQ0NyAzLjM0MDk4IDMxLjM1MjdaIiBmaWxsPSIjQUZBRkFGIi8+DQo8cGF0aCBmaWxsLXJ1bGU9ImV2ZW5vZGQiIGNsaXAtcnVsZT0iZXZlbm9kZCIgZD0iTTE0Mi4wMDIgMjMuNDc4M0MxNDIuMDAyIDIxLjU4OTUgMTQxLjE4OCAxOS43MDA4IDEzOS4zMjkgMTguMzM1MUwxMDkuMDUxIDEuMjQ5NDdDMTA3Ljk0NyAwLjQzNTg2NSAxMDYuNjEgNS44NDAwNmUtMDYgMTA1LjIxNSA1LjcxODEzZS0wNkwzOS44MDc4IDBDMzguNDQyMSAtMS4xOTM5MmUtMDcgMzcuMTYzNiAwLjUyMzAzIDM2LjAwMTMgMS4yNDk0NkwzLjY4OTY4IDIwLjY1OTdDMS44MDA5NiAyMS44NTEgMC42OTcwMjYgMjMuOTcyMiAwLjY2Nzk2OSAyNi4xNTE1TDE0Mi4wMDIgMjMuNDc4M1oiIGZpbGw9InVybCgjcGFpbnQwX2xpbmVhcl8zNDBfMjUpIi8+DQo8ZGVmcz4NCjxsaW5lYXJHcmFkaWVudCBpZD0icGFpbnQwX2xpbmVhcl8zNDBfMjUiIHgxPSIyMiIgeTE9IjEyLjYxMzMiIHgyPSIxMjUuNSIgeTI9IjI0LjYxMzMiIGdyYWRpZW50VW5pdHM9InVzZXJTcGFjZU9uVXNlIj4NCjxzdG9wIHN0b3AtY29sb3I9IndoaXRlIiBzdG9wLW9wYWNpdHk9IjAuNCIvPg0KPHN0b3Agb2Zmc2V0PSIxIiBzdG9wLWNvbG9yPSJ3aGl0ZSIgc3RvcC1vcGFjaXR5PSIwIi8+DQo8L2xpbmVhckdyYWRpZW50Pg0KPC9kZWZzPg0KPC9zdmc+DQo=);
+        }
+
+    .table > tbody > tr {
+        position: relative;
+    }
+
+    tbody {
+        display: table-row-group;
+        vertical-align: middle;
+        border-color: inherit;
+    }
+
+    .abacus {
+        table-layout: fixed;
+        /*border: 10px solid #7acebe;*/
+        position: relative;
+    }
+
+    .abacus, .noselect {
+        -webkit-touch-callout: none;
+        -webkit-user-select: none;
+        -khtml-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+    }
+    .wrapper
+    {
+        max-width: 1200px;
+        margin: auto;
+    }
+
+    canvas
+    {
+        max-width: 400px;
+        height: 530px;
+        margin: auto;
+        display: block;
+    }
+
+</style>
+
+<div class="status-bar">
+    <button id="b-back" class="but-back">&lt; Назад</button>
+    <span class="heading-block" id="heading-block-center">Математический кроссворд</span>
+</div>
+<div id="start-block" style="display: block;">
+    <img class="bg-small-bear" src="./Умка _ Абакус_files/umka-bg.svg">
+    <div class="white-block" style="width: 600px;">
+        <img class="block-bg-wh" src="./Умка _ Абакус_files/bg-wh-rec.svg">
+        <div class="wrapper" style="padding: 30px 10px">
+            <canvas id="gameCrossword" width="400" height="530" style="border-radius: 30px;">
+    
+            </canvas>
+        </div>
+    </div>
+</div>
+
+
+<div id="game-block" class="abacus-block-main" style="">
+    <img class="bg-small-bear" src="./Умка _ Абакус_files/umka-bg.svg">
+    
+    
+</div>
+
+<script>
+
+const canvas = document.getElementById("gameCrossword");
+    const ctx = canvas.getContext("2d");
+    ctx.font = "15px serif";
+    
+    let needDecision = 15
+    let decision = 0
+
+    let ChoosenValue
+    let isChoosen = false
+
+    let ChoosenIndex 
+    let ChoosenRow 
+
+    let dragStartX 
+    let dragStartY 
+
+    let resetButton = new Image()
+    resetButton.src = 'resetButton.svg'
+
+    let CellSize =30;
+
+    let isDragging = false
+
+    let mouseDown = function(event)
+    {
+        event.preventDefault()
+        console.log(event)
+        let rect = canvas.getBoundingClientRect()
+        let clickedX = event.clientX - rect.left
+        let clickedY = event.clientY - rect.top
+        console.log(clickedX)
+        console.log(clickedY)
+        ifMouseDownOnVariants(clickedX, clickedY)
+        ifMouseDownOnCrossword(clickedX, clickedY)
+        ifMouseDownOnResetButton(clickedX, clickedY)
+    }
+
+
+    canvas.onmousedown = mouseDown
+
+    let template1 = [
+            ['void', 'void', 'void', 'void', 'void', 'void', 'void', 'void', 'void', 'void', 'void', 'void', 'void'],
+            ['void', 'number', 'sign', 'number', 'equal', 'answer', 'void', 'number', 'sign', 'number', 'equal', 'answer', 'void'],
+            ['void', 'sign', 'void', 'void', 'void', 'sign', 'void', 'void', 'void', 'sign', 'void', 'void', 'void'],
+            ['void', 'number', 'sign', 'number', 'equal', 'answer', 'void', 'number', 'sign', 'number', 'equal', 'answer', 'void'],
+            ['void', 'equal', 'void', 'void', 'void', 'equal', 'void', 'sign', 'void', 'equal', 'void', 'void', 'void'],
+            ['void', 'answer', 'sign', 'number', 'equal', 'answer', 'void', 'number', 'sign', 'answer', 'equal', 'answer', 'void'],
+            ['void', 'void', 'void', 'sign', 'void', 'void', 'void', 'equal', 'void', 'void', 'void', 'sign', 'void'],
+            ['void', 'number', 'void', 'number', 'void', 'number', 'sign', 'answer', 'equal', 'answer', 'void', 'number', 'void'],
+            ['void', 'sign', 'void', 'equal', 'void', 'sign', 'void', 'void', 'void', 'sign', 'void', 'equal', 'void'],
+            ['void', 'number', 'sign', 'answer', 'equal', 'answer', 'void', 'number', 'sign', 'number', 'equal', 'answer', 'void'],
+            ['void', 'equal', 'void', 'void', 'void', 'equal', 'void', 'void', 'void', 'equal', 'void', 'void', 'void'],
+            ['void', 'answer', 'void', 'number', 'sign', 'answer', 'equal', 'answer', 'void', 'answer', 'void', 'void', 'void'],
+            ['void', 'void', 'void', 'void', 'void', 'void', 'void', 'void', 'void', 'void', 'void', 'void', 'void']
+        ]
+    let template2 = [
+            ['void', 'void', 'void', 'void', 'void', 'void', 'void', 'void', 'void', 'void', 'void', 'void', 'void'],
+            ['void', 'number', 'sign', 'number', 'equal', 'answer', 'void', 'number', 'sign', 'number', 'equal', 'answer', 'void'],
+            ['void', 'sign', 'void', 'void', 'void', 'sign', 'void', 'void', 'void', 'sign', 'void', 'void', 'void'],
+            ['void', 'number', 'sign', 'number', 'equal', 'answer', 'void', 'number', 'sign', 'number', 'equal', 'answer', 'void'],
+            ['void', 'equal', 'void', 'void', 'void', 'equal', 'void', 'sign', 'void', 'equal', 'void', 'void', 'void'],
+            ['void', 'answer', 'sign', 'number', 'equal', 'answer', 'void', 'number', 'sign', 'answer', 'equal', 'answer', 'void'],
+            ['void', 'void', 'void', 'sign', 'void', 'void', 'void', 'equal', 'void', 'void', 'void', 'sign', 'void'],
+            ['void', 'number', 'void', 'number', 'void', 'number', 'sign', 'answer', 'equal', 'answer', 'void', 'number', 'void'],
+            ['void', 'sign', 'void', 'equal', 'void', 'sign', 'void', 'void', 'void', 'sign', 'void', 'equal', 'void'],
+            ['void', 'number', 'sign', 'answer', 'equal', 'answer', 'void', 'number', 'sign', 'number', 'equal', 'answer', 'void'],
+            ['void', 'equal', 'void', 'void', 'void', 'equal', 'void', 'void', 'void', 'equal', 'void', 'void', 'void'],
+            ['void', 'answer', 'void', 'number', 'sign', 'answer', 'equal', 'answer', 'void', 'answer', 'void', 'void', 'void'],
+            ['void', 'void', 'void', 'void', 'void', 'void', 'void', 'void', 'void', 'void', 'void', 'void', 'void']
+        ]
+
+    const simpleNumbers = new Set([0, 2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 53, 59, 61, 67, 71, 73, 79, 83, 89, 97]);
+    const signs = new Set(['+', '-', '/', '*']);
+    let variants = []
+    let choosenVariansts = []
+
+    function Draw()
+    {
+        ctx.fillStyle = "#3caac6"
+        ctx.fillRect(0, 0, 400, 530)
+        ctx.fillStyle = "white"
+
+        
+        for (let i = 1; i < template1.length-1; i++)
+        {
+            for (let j = 1; j < template1.length-1; j++)
+            {
+                if (template1[i][j] == 'equal')
+                {
+                    ctx.fillStyle = "White"
+                    ctx.fillRect(j*CellSize, i*CellSize, CellSize, CellSize)
+                    ctx.fillStyle = "#3caac6"
+                    ctx.fillText('=', 10+j*CellSize, 20+i*CellSize)
+                }
+            }
+        }
+
+        generateAloneNumberWithSign( 1, 1, true, true)
+        generateAloneNumberWithSign( 7, 1, false, true)
+        generateAloneNumberWithSign( 1, 7, true, false)
+        generateAloneNumberWithSign( 11, 5, true, false)
+        generateAloneNumberWithSign( 5, 7, true, true)
+
+        generteSecondNumberWithAnswer( 1, 1, true, true)
+        generteSecondNumberWithAnswer( 7, 1, false, true)
+        generteSecondNumberWithAnswer( 1, 7, true, false)
+        generteSecondNumberWithAnswer( 11, 5, true, false)
+        generteSecondNumberWithAnswer( 5, 7, true, true)
+
+        generateSecondaryVerticalExpression(5, 1)
+        generateSecondaryVerticalExpression(9, 7)
+
+        generateIntermediateNumberAndSign(5,3, false, true)
+        generateIntermediateNumberAndSign(5,5, false, true)
+        generateIntermediateNumberAndSign(5,9, false, true)
+        generateIntermediateNumberAndSign(11,9, false, true)
+        generateIntermediateNumberAndSign(3, 9, true, false)
+
+        generateAloneAnswer(11, 3)
+        generateAloneAnswer(7, 11)
+
+        generateIntermediateNumberAndSign(7, 11, false, true)
+
+        generateAloneAnswer(7, 3)
+        generateIntermediateNumberAndSign(7, 7, true, false)
+        generateIntermediateNumberAndSign(11, 5, false, true)
+        generateIntermediateNumberAndSign(11, 3, false, true)
+
+        template1[1][9] = 'number'
+        generateIntermediateNumberAndSign(9, 5, true, false)
+        template1[1][7] = 'number'
+        generateIntermediateNumberAndSign(11, 1, false, true)
+
+        
+        addVariantsAndHideCells()
+        drawBorder()
+
+        ctx.fillStyle = "White"
+        ctx.fillRect(0, template1.length*CellSize, 600, 5)
+
+        drawVariants()
+        drawButtonReset()
+        
+        for (let i = 0; i < template1.length; i++)
+        {
+            for (let j = 0; j < template1.length; j++)
+                {
+                    template2[i][j] = template1[i][j] 
+                }
+        }
+
+        for (let i = 0; i < template1.length; i++)
+        {
+            for (let j = 0; j < template1.length; j++)
+                {
+                    checkVictory(i,j)  
+                }
+        }
+    }
+
+    function checkVictory(x, y)
+    {
+        checkHorizontalDecision(x, y)
+        checkVerticalDecision(x, y)
+        if(needDecision == decision)
+        {
+            alert('You win!')
+        }
+
+        console.log('Примеров решено ' + decision)
+        
+    }
+
+    function checkHorizontalDecision(x, y)
+    {
+        if (template1[y][x+1] == 'equal')
+        {
+            switch(template1[y][x-1]) {
+                case '-': 
+                    if (template1[y][x-2] - template1[y][x] == template1[y][x+2])
+                    {
+                        decision+=1
+                        template1[y][x-1] = 'done'
+                    }
+                    break
+                case '+':  
+                    if (template1[y][x-2] + template1[y][x] == template1[y][x+2])
+                    {
+                        decision+=1
+                        template1[y][x-1] = 'done'
+                    }
+                    break
+                case '/':  
+                    if (template1[y][x-2] / template1[y][x] == template1[y][x+2])
+                    {
+                        decision+=1
+                        template1[y][x-1] = 'done'
+                    }
+                    break
+                case '*':  
+                    if (template1[y][x-2] * template1[y][x] == template1[y][x+2])
+                    {
+                        decision+=1
+                        template1[y][x-1] = 'done'
+                    }
+                    break
+            }
+        }
+
+        if (template1[y][x+2] == 'equal')
+        {
+            switch(template1[y][x]) {
+                case '-': 
+                    if (template1[y][x-1] - template1[y][x+1] == template1[y][x+3])
+                    {
+                        decision+=1
+                        template1[y][x] = 'done'
+                    }
+                    break
+                case '+':  
+                    if (template1[y][x-1] + template1[y][x+1] == template1[y][x+3])
+                    {
+                        decision+=1
+                        template1[y][x] = 'done'
+                    }
+                    break
+                case '/':  
+                    if (template1[y][x-1] / template1[y][x+1] == template1[y][x+3])
+                    {
+                        decision+=1
+                        template1[y][x] = 'done'
+                    }
+                    break
+                case '*':  
+                    if (template1[y][x-1] * template1[y][x+1] == template1[y][x+3])
+                    {
+                        decision+=1
+                        template1[y][x] = 'done'
+                    }
+                    break
+            }
+        }
+
+        if (template1[y][x+3] == 'equal')
+        {
+            switch(template1[y][x+1]) {
+                case '-': 
+                    if (template1[y][x] - template1[y][x+2] == template1[y][x+4])
+                    {
+                        decision+=1
+                        template1[y][x] = 'done'
+                    }
+                    break
+                case '+':  
+                    if (template1[y][x] + template1[y][x+2] == template1[y][x+4])
+                    {
+                        decision+=1
+                        template1[y][x] = 'done'
+                    }
+                    break
+                case '/':  
+                    if (template1[y][x] / template1[y][x+2] == template1[y][x+4])
+                    {
+                        decision+=1
+                        template1[y][x] = 'done'
+                    }
+                    break
+                case '*':  
+                    if (template1[y][x] * template1[y][x+2] == template1[y][x+4])
+                    {
+                        decision+=1
+                        template1[y][x] = 'done'
+                    }
+                    break
+            }
+        }
+
+        if (template1[y][x-1] == 'equal')
+        {
+            switch(template1[y][x-3]) {
+                case '-': 
+                    if (template1[y][x-4] - template1[y][x-2] == template1[y][x])
+                    {
+                        decision+=1
+                        template1[y][x] = 'done'
+                    }
+                    break
+                case '+':  
+                    if (template1[y][x-4] + template1[y][x-2] == template1[y][x])
+                    {
+                        decision+=1
+                        template1[y][x] = 'done'
+                    }
+                    break
+                case '/':  
+                    if (template1[y][x-4] / template1[y][x-2] == template1[y][x])
+                    {
+                        decision+=1
+                        template1[y][x] = 'done'
+                    }
+                    break
+                case '*':  
+                    if (template1[y][x-4] * template1[y][x-2] == template1[y][x])
+                    {
+                        decision+=1
+                        template1[y][x] = 'done'
+                    }
+                    break
+            }
+        }
+    }
+
+    function checkVerticalDecision(x, y)
+    {
+        if (y < 12 && y > 1)
+        {
+            if (template1[y+1][x] == 'equal')
+            {
+                switch(template1[y-1][x]) {
+                    case '-': 
+                        if (template1[y-2][x] - template1[y][x] == template1[y+2][x])
+                        {
+                            decision+=1
+                            template1[y-1][x] = 'done'
+                        }
+                        break
+                    case '+':  
+                        if (template1[y-2][x] + template1[y][x] == template1[y+2][x])
+                        {
+                            decision+=1
+                            template1[y-1][x] = 'done'
+                        }
+                        break
+                    case '/':  
+                        if (template1[y-2][x] / template1[y][x] == template1[y+2][x])
+                        {
+                            decision+=1
+                            template1[y-1][x] = 'done'
+                        }
+                        break
+                    case '*':  
+                        if (template1[y-2][x] * template1[y][x] == template1[y+2][x])
+                        {
+                            decision+=1
+                            template1[y-1][x] = 'done'
+                        }
+                        break
+                }
+            }
+        }
+
+        if (y < 11)
+        {
+            if (template1[y+2][x] == 'equal')
+            {
+                switch(template1[y][x]) {
+                    case '-': 
+                        if (template1[y-1][x] - template1[y+1][x] == template1[y+3][x])
+                        {
+                            decision+=1
+                            template1[y][x] = 'done'
+                        }
+                        break
+                    case '+':  
+                        if (template1[y-1][x] + template1[y+1][x] == template1[y+3][x])
+                        {
+                            decision+=1
+                            template1[y][x] = 'done'
+                        }
+                        break
+                    case '/':  
+                        if (template1[y-1][x] / template1[y+1][x] == template1[y+3][x])
+                        {
+                            decision+=1
+                            template1[y][x] = 'done'
+                        }
+                        break
+                    case '*':  
+                        if (template1[y-1][x] * template1[y+1][x] == template1[y+3][x])
+                        {
+                            decision+=1
+                            template1[y][x] = 'done'
+                        }
+                        break
+                }
+            }
+        }
+
+        if (y < 10)
+        {
+            if (template1[y+3][x] == 'equal')
+            {
+                switch(template1[y+1][x]) {
+                    case '-': 
+                        if (template1[y][x] - template1[y+2][x] == template1[y+4][x])
+                        {
+                            decision+=1
+                            template1[y][x] = 'done'
+                        }
+                        break
+                    case '+':  
+                        if (template1[y][x] + template1[y+2][x] == template1[y+4][x])
+                        {
+                            decision+=1
+                            template1[y][x] = 'done'
+                        }
+                        break
+                    case '/':  
+                        if (template1[y][x] / template1[y+2][x] == template1[y+4][x])
+                        {
+                            decision+=1
+                            template1[y][x] = 'done'
+                        }
+                        break
+                    case '*':  
+                        if (template1[y][x] * template1[y+2][x] == template1[y+4][x])
+                        {
+                            decision+=1
+                            template1[y][x] = 'done'
+                        }
+                        break
+                }
+            }
+        }
+
+        if (y > 3 )
+        {
+            if (template1[y-1][x] == 'equal')
+            {
+                switch(template1[y-3][x]) {
+                    case '-': 
+                        if (template1[y-4][x] - template1[y-2][x] == template1[y][x])
+                        {
+                            decision+=1
+                            template1[y][x] = 'done'
+                        }
+                        break
+                    case '+':  
+                        if (template1[y-4][x] + template1[y-2][x] == template1[y][x])
+                        {
+                            decision+=1
+                            template1[y][x] = 'done'
+                        }
+                        break
+                    case '/':  
+                        if (template1[y-4][x] / template1[y-2][x] == template1[y][x])
+                        {
+                            decision+=1
+                            template1[y][x] = 'done'
+                        }
+                        break
+                    case '*':  
+                        if (template1[y-4][x] * template1[y-2][x] == template1[y][x])
+                        {
+                            decision+=1
+                            template1[y][x] = 'done'
+                        }
+                        break
+                }
+            }
+        }
+    }
+    
+    function drawResetCrossword()
+    {
+        for (let i = 0; i < template1.length; i++)
+        {
+            for (let j = 0; j < template1.length; j++)
+                {
+                    template1[i][j] = template2[i][j]
+                }
+        }
+
+        for (let i = 1; i < template1.length-1; i++)
+        {
+            for (let j = 1; j < template1.length-1; j++)
+            {
+                if (template1[i][j] != 'void' && template1[i][j] != 'hidden' && template1[i][j] != 'equal')
+                {
+                    ctx.fillStyle = "White"
+                    ctx.fillRect(j*CellSize, i*CellSize, CellSize, CellSize)
+                    ctx.fillStyle = "#3caac6"
+                    ctx.fillText(template1[i][j], 10+j*CellSize, 20+i*CellSize)
+                }
+
+                if (template1[i][j] == 'hidden')
+                {
+                    ctx.fillStyle = "White"
+                    ctx.fillRect(j*CellSize, i*CellSize, CellSize, CellSize)
+                }
+
+                if (template1[i][j] == 'equal')
+                {
+                    ctx.fillStyle = "White"
+                    ctx.fillRect(j*CellSize, i*CellSize, CellSize, CellSize)
+                    ctx.fillStyle = "#3caac6"
+                    ctx.fillText('=', 10+j*CellSize, 20+i*CellSize)
+                }
+
+                
+            }
+        }
+
+        drawBorder()
+
+    }
+
+    function drawButtonReset()
+    {
+        ctx.fillStyle = "White"
+        ctx.drawImage(resetButton,340, 410, 50, 50)
+    }
+
+    function ifMouseDownOnResetButton(clickedX, clickedY)
+    {
+        if(clickedX > 340 && clickedX < 390 && clickedY > 410 && clickedY < 460) 
+        {
+            for (let i = 0; i < choosenVariansts.length; i++)
+            {
+                variants.push(choosenVariansts[i])
+            }
+            choosenVariansts= []
+            decision = 0
+            drawVariants()
+            drawResetCrossword()
+        }
+    }
+    
+    function ifMouseDownOnVariants(clickedX, clickedY)
+    {
+        for (let i = 0; i < variants.length; i++)
+        {
+            if (i < 10)
+            {
+                if(clickedX > CellSize+i*CellSize && clickedX < CellSize+(i+1)*CellSize && clickedY > 12.5+(template1.length)*CellSize && clickedY < 12.5+(template1.length+1)*CellSize) 
+                {
+                    drawVariants()
+                    DrawBorderChoosenVariant(i, 0)
+                    ChoosenValue = variants[i]
+                    console.log(ChoosenValue)
+                    isChoosen = true
+                    ChoosenIndex = i
+                    ChoosenRow = 0
+                }
+            }
+            else if (i < 20)
+            {
+                if(clickedX > CellSize+(i-10)*CellSize && clickedX < CellSize+(i-9)*CellSize && clickedY > 10+12.5+(template1.length+1)*CellSize && clickedY < 10+12.5+(template1.length+2)*CellSize) 
+                {
+                    drawVariants()
+                    DrawBorderChoosenVariant(i-10, 1)
+                    ChoosenValue = variants[i]
+                    console.log(ChoosenValue)
+                    isChoosen = true
+                    ChoosenIndex = i
+                    ChoosenRow = 0
+                }
+            }
+            else
+            {
+                if(clickedX > CellSize+(i-20)*CellSize && clickedX < CellSize+(i-19)*CellSize && clickedY > 15+12.5+(template1.length+2)*CellSize && clickedY < 15+12.5+(template1.length+3)*CellSize) 
+                {
+                    drawVariants()
+                    DrawBorderChoosenVariant(i-20, 2)
+                    ChoosenValue = variants[i]
+                    console.log(ChoosenValue)
+                    isChoosen = true
+                    ChoosenIndex = i
+                    ChoosenRow = 0
+                }
+            }
+        }
+    }   
+
+    function ifMouseDownOnCrossword(clickedX, clickedY)
+    {
+        for (let i = 1; i < template1.length-1; i++)
+        {
+            for (let j = 1; j < template1.length-1; j++)
+            {
+                if (clickedX > j*CellSize && clickedX < (j+1)*CellSize && clickedY >i*CellSize && clickedY < (i+1)*CellSize)
+                {
+                    console.log('You clicked on ' + template1[i][j])
+                    if (isChoosen && template1[i][j] == 'hidden')
+                    {
+                        template1[i][j] = ChoosenValue
+                        DrawCellWithChoosen(j,i)
+                        drawBorder()
+                        isChoosen = false
+                        choosenVariansts.push(ChoosenValue)
+                        ChoosenValue = 0
+                        variants.splice(ChoosenIndex, 1)
+                        drawVariants()
+                        checkVictory(j, i)
+                    }
+                }
+            }
+        }
+    }
+
+    function ClearVariantsSector()
+    {
+        ctx.fillStyle = "#3caac6"
+        ctx.fillRect(0, template1.length*CellSize+5, 335, 530)
+        ctx.fillStyle = "white"
+    }
+
+    function DrawClearVariantsCell(index, row)
+    {
+        ctx.fillStyle = "#3caac6"
+        ctx.fillRect(CellSize+index*CellSize, (5*row)+10+(template1.length+row)*CellSize, CellSize, CellSize)
+    }
+
+    function DrawBorderChoosenVariant( index, row)
+    {
+        ctx.strokeStyle = "Green"
+        ctx.strokeRect(CellSize+index*CellSize, (5*row)+10+(template1.length+row)*CellSize, CellSize, CellSize)
+    }
+
+    function drawBorder()
+    {
+        ctx.fillStyle = "Black"
+
+        for (let i = 1; i < template1.length-1; i++)
+        {
+            for (let j = 1; j < template1.length-1; j++)
+            {
+                if (template1[i][j] != 'void')
+                {
+                    ctx.strokeStyle = "Gray"
+                    ctx.strokeRect(j*CellSize, i*CellSize, CellSize, CellSize)
+                }
+            }
+        }
+
+    }
+
+    function drawVariants()
+    {
+        ClearVariantsSector()
+        for (let i = 0; i < variants.length; i++)
+        {   
+            if (i < 10)
+            {
+                DrawCellVariant(i, i, 0)
+            }
+            else if (i < 20)
+            {
+                DrawCellVariant(i, i - 10, 1)
+            }
+            else
+            {
+                DrawCellVariant(i, i - 20, 2)
+            }
+            
+        }
+    }
+
+    function addVariantsAndHideCells()
+    {
+        do{
+            for (let i = 1; i < template1.length-1; i++)
+            {
+                for (let j = 1; j < template1.length-1; j++)
+                {
+                    if (typeof(template1[i][j]) == 'number' || signs.has(template1[i][j]))
+                    {
+                        randomValue = Math.floor(Math.random() * 101)
+                        if (randomValue < 11)
+                        {
+                            variants.push(template1[i][j])
+                            ctx.fillStyle = "White"
+                            ctx.fillRect(j*CellSize, i*CellSize, CellSize, CellSize)
+                            template1[i][j] = 'hidden'
+                        }
+                    }
+                    
+                }
+            }
+        } while(variants.length < 20)
+    }
+
+    function DrawCellWithChoosen(x, y)
+    {
+        ctx.fillStyle = "White"
+        ctx.fillRect(x*CellSize, y*CellSize, CellSize, CellSize)
+        ctx.fillStyle = "Black"
+        ctx.fillText(template1[y][x], getXPos(template1[y][x])+x*CellSize, 20+y*CellSize)
+        ctx.fillStyle = "White"
+    }
+
+    function DrawCell(x, y)
+    {
+        ctx.fillStyle = "White"
+        ctx.fillRect(x*CellSize, y*CellSize, CellSize, CellSize)
+        ctx.fillStyle = "#3caac6"
+        ctx.fillText(template1[y][x], getXPos(template1[y][x])+x*CellSize, 20+y*CellSize)
+        ctx.fillStyle = "White"
+    }
+
+    function DrawCellVariant(value , index, row)
+    {
+        ctx.fillStyle = "White"
+        ctx.fillRect(CellSize+index*CellSize, (5*row)+10+(template1.length+row)*CellSize, CellSize, CellSize)
+        ctx.fillStyle = "#3caac6"
+        ctx.fillText(variants[value], getXPos(variants[value])+(index+1)*CellSize, (template1.length+row)*CellSize+30+(5*row))
+        ctx.strokeStyle = "Gray"
+        ctx.strokeRect(CellSize+index*CellSize, (5*row)+10+(template1.length+row)*CellSize, CellSize, CellSize)
+    }
+
+    function generateAloneAnswer(xAnsw, yAnsw)
+    {
+        template1[yAnsw][xAnsw] = Math.floor(Math.random() * 99) + 1
+        DrawCell(xAnsw, yAnsw)
+    }
+
+    function generateIntermediateNumberAndSign(xAnsw, yAnsw, isVertical, isHorisontal)
+    {
+        if (isVertical)
+        {
+            if (template1[yAnsw-2][xAnsw] == 'number' || template1[yAnsw-2][xAnsw] == 'answer')
+            {
+                if (template1[yAnsw-4][xAnsw] % template1[yAnsw][xAnsw] == 0)
+                {
+                    template1[yAnsw-3][xAnsw] = '/'
+                } 
+                else if (template1[yAnsw][xAnsw] % template1[yAnsw-4][xAnsw] == 0)
+                {
+                    template1[yAnsw-3][xAnsw] = '*'
+                }
+                else if (template1[yAnsw][xAnsw] > template1[yAnsw-4][xAnsw])
+                {
+                    template1[yAnsw-3][xAnsw] = '+'
+                }
+                else 
+                {
+                    template1[yAnsw-3][xAnsw] = '-'
+                }
+                    DrawCell(xAnsw,yAnsw-3)
+
+                switch(template1[yAnsw-3][xAnsw]) {
+                    case '-': 
+                        template1[yAnsw-2][xAnsw] = template1[yAnsw-4][xAnsw] - template1[yAnsw][xAnsw]
+                        break
+                    case '+':  
+                        template1[yAnsw-2][xAnsw] = template1[yAnsw][xAnsw] - template1[yAnsw-4][xAnsw]
+                        break
+                    case '/':  
+                        template1[yAnsw-2][xAnsw] = template1[yAnsw-4][xAnsw] / template1[yAnsw][xAnsw]
+                        break
+                    case '*':  
+                        template1[yAnsw-2][xAnsw] = template1[yAnsw][xAnsw] / template1[yAnsw-4][xAnsw]
+                        break
+                }
+                DrawCell(xAnsw,yAnsw-2)
+            }
+            else
+            {
+                if (template1[yAnsw-2][xAnsw] * template1[yAnsw][xAnsw] < 100)
+                {
+                    template1[yAnsw-3][xAnsw] = '/'
+                } 
+                else if (template1[yAnsw][xAnsw] % template1[yAnsw-2][xAnsw] == 0)
+                {
+                    template1[yAnsw-3][xAnsw] = '*'
+                }
+                else if (template1[yAnsw][xAnsw] > template1[yAnsw-3][xAnsw])
+                {
+                    template1[yAnsw-3][xAnsw] = '+'
+                }
+                else 
+                {
+                    template1[yAnsw-3][xAnsw] = '-'
+                }
+                    DrawCell(xAnsw,yAnsw-3)
+
+                switch(template1[yAnsw-3][xAnsw]) {
+                    case '-': 
+                        template1[yAnsw-4][xAnsw] = template1[yAnsw-2][xAnsw] + template1[yAnsw][xAnsw]
+                        break
+                    case '+':  
+                        template1[yAnsw-4][xAnsw] = template1[yAnsw][xAnsw] - template1[yAnsw-2][xAnsw]
+                        break
+                    case '/':  
+                        template1[yAnsw-4][xAnsw] = template1[yAnsw-2][xAnsw] * template1[yAnsw][xAnsw]
+                        break
+                    case '*':  
+                        template1[yAnsw-4][xAnsw] = template1[yAnsw][xAnsw] / template1[yAnsw-2][xAnsw]
+                        break
+                }
+                DrawCell(xAnsw,yAnsw-4)
+            }
+        }
+
+        if (isHorisontal)
+        {
+            if (template1[yAnsw][xAnsw-2] == 'number' || template1[yAnsw][xAnsw-2] == 'answer')
+            {
+                if (template1[yAnsw][xAnsw-4] % template1[yAnsw][xAnsw] == 0)
+                {
+                    template1[yAnsw][xAnsw-3] = '/'
+                } 
+                else if (template1[yAnsw][xAnsw] % template1[yAnsw][xAnsw-4] == 0)
+                {
+                    template1[yAnsw][xAnsw-3] = '*'
+                }
+                else if (template1[yAnsw][xAnsw] > template1[yAnsw][xAnsw-4])
+                {
+                    template1[yAnsw][xAnsw-3] = '+'
+                }
+                else 
+                {
+                    template1[yAnsw][xAnsw-3] = '-'
+                }
+                    DrawCell(xAnsw-3,yAnsw)
+
+                switch(template1[yAnsw][xAnsw-3]) {
+                    case '-': 
+                        template1[yAnsw][xAnsw-2] = template1[yAnsw][xAnsw-4] - template1[yAnsw][xAnsw]
+                        break
+                    case '+':  
+                        template1[yAnsw][xAnsw-2] = template1[yAnsw][xAnsw] - template1[yAnsw][xAnsw-4]
+                        break
+                    case '/':  
+                        template1[yAnsw][xAnsw-2] = template1[yAnsw][xAnsw-4] / template1[yAnsw][xAnsw]
+                        break
+                    case '*':  
+                        template1[yAnsw][xAnsw-2] = template1[yAnsw][xAnsw] / template1[yAnsw][xAnsw-4]
+                        break
+                }
+                DrawCell(xAnsw-2,yAnsw)
+            }
+            else
+            {
+                if (template1[yAnsw][xAnsw-2] * template1[yAnsw][xAnsw] < 100)
+                {
+                    template1[yAnsw][xAnsw-3] = '/'
+                } 
+                else if (template1[yAnsw][xAnsw] % template1[yAnsw][xAnsw-2] == 0)
+                {
+                    template1[yAnsw][xAnsw-3] = '*'
+                }
+                else if (template1[yAnsw][xAnsw] > template1[yAnsw][xAnsw-3])
+                {
+                    template1[yAnsw][xAnsw-3] = '+'
+                }
+                else 
+                {
+                    template1[yAnsw][xAnsw-3] = '-'
+                }
+                    DrawCell(xAnsw-3,yAnsw)
+
+                switch(template1[yAnsw][xAnsw-3]) {
+                    case '-': 
+                        template1[yAnsw][xAnsw-4] = template1[yAnsw][xAnsw-2] + template1[yAnsw][xAnsw]
+                        break
+                    case '+':  
+                        template1[yAnsw][xAnsw-4] = template1[yAnsw][xAnsw] - template1[yAnsw][xAnsw-2]
+                        break
+                    case '/':  
+                        template1[yAnsw][xAnsw-4] = template1[yAnsw][xAnsw-2] * template1[yAnsw][xAnsw]
+                        break
+                    case '*':  
+                        template1[yAnsw][xAnsw-4] = template1[yAnsw][xAnsw] / template1[yAnsw][xAnsw-2]
+                        break
+                }
+                ctx.fillText(template1[yAnsw][xAnsw-4], getXPos(template1[yAnsw][xAnsw-4])+(xAnsw-4)*CellSize, 20+(yAnsw)*CellSize)
+                DrawCell(xAnsw-4,yAnsw)
+            }
+        }
+    } 
+    
+    function generateSecondaryVerticalExpression(x, y)
+    {
+        if(template1[y][x] < 20 && template1[y][x] != 0) 
+            {
+                template1[y+1][x] = generateSign(false, true)
+            }
+        else
+            {
+                if (simpleNumbers.has(template1[y][x]))
+                {
+                    template1[y+1][x] = generateSign(true, true)
+                }
+                else
+                {
+                    template1[y+1][x] = generateSign(true, false)
+                }
+                
+            }
+            DrawCell(x,y+1)
+
+            switch(template1[y+1][x]) {
+                case '-': 
+                    template1[y+2][x] = Math.floor(Math.random() * template1[y][x])
+                    template1[y+4][x] = template1[y][x] - template1[y+2][x]
+                    break
+                case '+':  
+                    template1[y+2][x] = Math.floor(Math.random() * (99-template1[y][x]))
+                    template1[y+4][x] = template1[y][x] + template1[y+2][x]
+                    break
+                case '/':  
+                    do 
+                    {
+                        randomValue = Math.floor(Math.random() * 19)+1
+                    }
+                    while (template1[y][x] % randomValue != 0) 
+                    template1[y+2][x] = randomValue
+                    template1[y+4][x] = template1[y][x] / template1[y+2][x]
+                    break
+                case '*':  
+                    do 
+                    {
+                        randomValue = Math.floor(Math.random() * 20)
+                    }
+                    while (template1[y][x] * randomValue > 99) 
+                    template1[y+2][x] = randomValue
+                    template1[y+4][x] = template1[y][x] * template1[y+2][x]
+                    break
+                }
+            DrawCell(x,y+2)
+            DrawCell(x,y+4)
+    }
+
+    function generteSecondNumberWithAnswer(x, y, isVertical, isHorisontal)
+    {
+        if(isVertical)
+        {
+            switch(template1[y+1][x]) {
+                case '-': 
+                    template1[y+2][x] = Math.floor(Math.random() * template1[y][x])
+                    template1[y+4][x] = template1[y][x] - template1[y+2][x]
+                    break
+                case '+':  
+                    template1[y+2][x] = Math.floor(Math.random() * (99-template1[y][x]))
+                    template1[y+4][x] = template1[y][x] + template1[y+2][x]
+                    break
+                case '/':  
+                    do 
+                    {
+                        randomValue = Math.floor(Math.random() * 19) + 1
+                    }
+                    while (template1[y][x] % randomValue != 0) 
+                    template1[y+2][x] = randomValue
+                    template1[y+4][x] = template1[y][x] / template1[y+2][x]
+                    break
+                case '*':  
+                    do 
+                    {
+                        randomValue = Math.floor(Math.random() * 19)+1
+                    }
+                    while (template1[y][x] * randomValue > 99) 
+                    template1[y+2][x] = randomValue
+                    template1[y+4][x] = template1[y][x] * template1[y+2][x]
+                    break
+                }
+                DrawCell(x,y+2)
+                DrawCell(x,y+4)
+        }
+
+        if(isHorisontal)
+        {
+            switch(template1[y][x+1]) {
+                case '-': 
+                    template1[y][x+2] = Math.floor(Math.random() * template1[y][x])
+                    template1[y][x+4] = template1[y][x] - template1[y][x+2]
+                    break
+                case '+':  
+                    template1[y][x+2] = Math.floor(Math.random() * (99-template1[y][x]))
+                    template1[y][x+4] = template1[y][x] + template1[y][x+2]
+                    break
+                case '/':  
+                    do 
+                    {
+                        randomValue = Math.floor(Math.random() * 19) + 1
+                    }
+                    while (template1[y][x] % randomValue != 0) 
+                    template1[y][x+2] = randomValue
+                    template1[y][x+4] = template1[y][x] / template1[y][x+2]
+                    break
+                case '*':  
+                    do 
+                    {
+                        randomValue = Math.floor(Math.random() * 20)
+                    }
+                    while (template1[y][x] * randomValue > 99) 
+                    template1[y][x+2] = randomValue
+                    template1[y][x+4] = template1[y][x] * template1[y][x+2]
+                    break
+                }
+            DrawCell(x+2,y)
+            DrawCell(x+4,y)
+        }
+    }
+    
+    function generateAloneNumberWithSign(x, y, isVertical, isHorisontal)
+    {
+        template1[y][x] = Math.floor(Math.random() * 99) + 1
+        DrawCell(x,y)
+        if (isVertical)
+        {
+            if(template1[y][x] < 20 && template1[y][x] != 0) 
+                {
+                    template1[y+1][x] = generateSign(false, true)
+                }
+            else
+                {
+                    if (simpleNumbers.has(template1[y][x]))
+                    {
+                        template1[y+1][x] = generateSign(true, true)
+                    }
+                    else
+                    {
+                        template1[y+1][x] = generateSign(true, false)
+                    }
+                    
+                }
+                DrawCell(x,y+1)
+        }
+
+        if (isHorisontal)
+        {
+            if(template1[y][x] < 20 && template1[y][x] != 0) 
+                {
+                    template1[y][x+1] = generateSign(false, true)
+                }
+            else
+                {
+                    if (simpleNumbers.has(template1[y][x]))
+                    {
+                        template1[y][x+1] = generateSign(true, true)
+                    }
+                    else
+                    {
+                        template1[y][x+1] = generateSign(true, false)
+                    }
+                    
+                }
+                DrawCell(x+1,y)
+        }
+        
+    }
+
+    function generateSign(withoutMultiply, withoutDivision)
+    {
+        if (withoutMultiply == true && withoutDivision == true)
+        {
+            do 
+            {
+                randomValue = Math.floor(Math.random() * 4)
+            }
+            while (randomValue == 2 || randomValue == 3) 
+        }
+        else if (withoutMultiply == true)
+        {
+            do 
+            {
+                randomValue = Math.floor(Math.random() * 4)
+            }
+            while (randomValue == 2) 
+        }
+        else if (withoutDivision == true)
+        {
+            do 
+            {
+                randomValue = Math.floor(Math.random() * 4)
+            }
+            while (randomValue == 3) 
+        } 
+        else
+        {
+            randomValue = Math.floor(Math.random() * 4) 
+        }
+
+        switch(randomValue) {
+            case 0: 
+                return '+'
+            case 1:  
+                return '-'
+            case 2:  
+                return '*'
+            case 3:  
+                return '/'
+        }
+    }
+    
+    function getXPos(n) {
+   for(var i = 0; n > 1; i++) {
+      n /= 10;
+   }
+   switch(i+1) {
+        case 1: 
+            return 10
+        case 2:  
+            return 7.5
+        case 3:  
+            return 5
+        default: 
+            return 2.5
+    }
+}
+
+function getOffset(el) {
+  const rect = el.getBoundingClientRect();
+  return {
+    left: rect.left + window.scrollX,
+    top: rect.top + window.scrollY
+  };
+}
+
+    let $buttonsSize = $(".btn-size");
+    let $showResultsToggle = $(".toggle");
+    let isResultsShow = false;
+    let $selectedSize;
+    let counter;
+
+    var checkVisible = setInterval(() => {
+        if ($('#start-block').is(':visible')) {
+            $('#b-start').focus();
+        }
+    }, 500);
+
+    function changeSelectedButton() {
+        $(".btn-info").removeClass("btn-info");
+        $(this).addClass("btn-info");
+    }
+    function isResultsNeedToShow() {
+        if ($("#toggleCheck").prop("checked") == true) {
+            isResultsShow = true;
+        }
+        else {
+            isResultsShow = false;
+        }
+    }
+    let countOfSelected = [];
+    function moveAbacus() {
+        let cell = $(this);
+        console.log(cell.parent());
+        let column = "#counter-" + cell.parent().prop("id");
+        let idInCounterNow = cell.parent().prop("id");
+        let counterNow = Number(countOfSelected[idInCounterNow - 1]);
+        function checkNext(next) {
+            if (next.length != 0 && next.prop("class").split(' ')[1] == "can-down") {
+                next.removeClass("can-down");
+                next.addClass("can-up");
+                next.css('margin-top', '0px');
+                next.css('margin-bottom', '0px');
+                next.css('background-image', 'url(data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTQzIiBoZWlnaHQ9IjQ4IiB2aWV3Qm94PSIwIDAgMTQzIDQ4IiBmaWxsPSJub25lIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPg0KPHBhdGggZmlsbC1ydWxlPSJldmVub2RkIiBjbGlwLXJ1bGU9ImV2ZW5vZGQiIGQ9Ik0zLjM0MDk4IDMxLjM1MjdMMzMuNTAyMyA0NS45Njg1QzM0LjYzNTYgNDYuNzgyMSAzNS45NzIyIDQ3LjIxNzkgMzcuMzM3OSA0Ny4yMTc5TDEwOS4zNzEgNDcuMjE3OUMxMTAuNzY1IDQ3LjIxNzkgMTEyLjEwMiA0Ni43ODIxIDExMy4yMDYgNDUuOTY4NUwxMzguOTggMjkuMDU3MkMxNDIuNTI1IDI2Ljc2MTcgMTQzLjMwOSAyMS4yNDA4IDEzOS4zMjkgMTguMzM1MUwxMDkuMDUxIDEuMjQ5NDdDMTA3Ljk0NyAwLjQzNTg2NSAxMDYuNjEgNS44NDAwNmUtMDYgMTA1LjIxNSA1LjcxODEzZS0wNkwzOS44MDc4IDBDMzguNDQyMSAtMS4xOTM5MmUtMDcgMzcuMTYzNiAwLjUyMzAzIDM2LjAwMTMgMS4yNDk0NkwzLjY4OTY4IDIwLjY1OTdDMC4xNDQ3IDIyLjkyNjEgLTAuNjM5ODUzIDI4LjQ0NyAzLjM0MDk4IDMxLjM1MjdaIiBmaWxsPSIjQUZBRkFGIi8+DQo8cGF0aCBmaWxsLXJ1bGU9ImV2ZW5vZGQiIGNsaXAtcnVsZT0iZXZlbm9kZCIgZD0iTTE0Mi4wMDIgMjMuNDc4M0MxNDIuMDAyIDIxLjU4OTUgMTQxLjE4OCAxOS43MDA4IDEzOS4zMjkgMTguMzM1MUwxMDkuMDUxIDEuMjQ5NDdDMTA3Ljk0NyAwLjQzNTg2NSAxMDYuNjEgNS44NDAwNmUtMDYgMTA1LjIxNSA1LjcxODEzZS0wNkwzOS44MDc4IDBDMzguNDQyMSAtMS4xOTM5MmUtMDcgMzcuMTYzNiAwLjUyMzAzIDM2LjAwMTMgMS4yNDk0NkwzLjY4OTY4IDIwLjY1OTdDMS44MDA5NiAyMS44NTEgMC42OTcwMjYgMjMuOTcyMiAwLjY2Nzk2OSAyNi4xNTE1TDE0Mi4wMDIgMjMuNDc4M1oiIGZpbGw9InVybCgjcGFpbnQwX2xpbmVhcl8zNDBfMjUpIi8+DQo8ZGVmcz4NCjxsaW5lYXJHcmFkaWVudCBpZD0icGFpbnQwX2xpbmVhcl8zNDBfMjUiIHgxPSIyMiIgeTE9IjEyLjYxMzMiIHgyPSIxMjUuNSIgeTI9IjI0LjYxMzMiIGdyYWRpZW50VW5pdHM9InVzZXJTcGFjZU9uVXNlIj4NCjxzdG9wIHN0b3AtY29sb3I9IndoaXRlIiBzdG9wLW9wYWNpdHk9IjAuNCIvPg0KPHN0b3Agb2Zmc2V0PSIxIiBzdG9wLWNvbG9yPSJ3aGl0ZSIgc3RvcC1vcGFjaXR5PSIwIi8+DQo8L2xpbmVhckdyYWRpZW50Pg0KPC9kZWZzPg0KPC9zdmc+DQo=)');
+                counterNow--;
+            }
+            else {
+                cell.css('margin-top', '20px');
+                cell.css('margin-bottom', '0px');
+                next.css('margin-top', '0px');
+            }
+
+        }
+        function checkPrev(prev) {
+            if (prev.length != 0 && prev.prop("class").split(' ')[1] == "can-up") {
+                prev.css('margin-top', '0px');
+                prev.css('background-image', 'url(data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTQzIiBoZWlnaHQ9IjQ4IiB2aWV3Qm94PSIwIDAgMTQzIDQ4IiBmaWxsPSJub25lIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPg0KPHBhdGggZmlsbC1ydWxlPSJldmVub2RkIiBjbGlwLXJ1bGU9ImV2ZW5vZGQiIGQ9Ik0zLjM0MDk4IDMxLjM1MjdMMzMuNTAyMyA0NS45Njg1QzM0LjYzNTYgNDYuNzgyMSAzNS45NzIyIDQ3LjIxNzkgMzcuMzM3OSA0Ny4yMTc5TDEwOS4zNzEgNDcuMjE3OUMxMTAuNzY1IDQ3LjIxNzkgMTEyLjEwMiA0Ni43ODIxIDExMy4yMDYgNDUuOTY4NUwxMzguOTggMjkuMDU3MkMxNDIuNTI1IDI2Ljc2MTcgMTQzLjMwOSAyMS4yNDA4IDEzOS4zMjkgMTguMzM1MUwxMDkuMDUxIDEuMjQ5NDdDMTA3Ljk0NyAwLjQzNTg2NSAxMDYuNjEgNS44NDAwNmUtMDYgMTA1LjIxNSA1LjcxODEzZS0wNkwzOS44MDc4IDBDMzguNDQyMSAtMS4xOTM5MmUtMDcgMzcuMTYzNiAwLjUyMzAzIDM2LjAwMTMgMS4yNDk0NkwzLjY4OTY4IDIwLjY1OTdDMC4xNDQ3IDIyLjkyNjEgLTAuNjM5ODUzIDI4LjQ0NyAzLjM0MDk4IDMxLjM1MjdaIiBmaWxsPSIjM0E5Qzc0Ii8+DQo8cGF0aCBmaWxsLXJ1bGU9ImV2ZW5vZGQiIGNsaXAtcnVsZT0iZXZlbm9kZCIgZD0iTTE0Mi4wMDIgMjMuNDc4M0MxNDIuMDAyIDIxLjU4OTUgMTQxLjE4OCAxOS43MDA4IDEzOS4zMjkgMTguMzM1MUwxMDkuMDUxIDEuMjQ5NDdDMTA3Ljk0NyAwLjQzNTg2NSAxMDYuNjEgNS44NDAwNmUtMDYgMTA1LjIxNSA1LjcxODEzZS0wNkwzOS44MDc4IDBDMzguNDQyMSAtMS4xOTM5MmUtMDcgMzcuMTYzNiAwLjUyMzAzIDM2LjAwMTMgMS4yNDk0NkwzLjY4OTY4IDIwLjY1OTdDMS44MDA5NiAyMS44NTEgMC42OTcwMjYgMjMuOTcyMiAwLjY2Nzk2OSAyNi4xNTE1TDE0Mi4wMDIgMjMuNDc4M1oiIGZpbGw9InVybCgjcGFpbnQwX2xpbmVhcl8zNDBfMjUpIi8+DQo8ZGVmcz4NCjxsaW5lYXJHcmFkaWVudCBpZD0icGFpbnQwX2xpbmVhcl8zNDBfMjUiIHgxPSIyMiIgeTE9IjEyLjYxMzMiIHgyPSIxMjUuNSIgeTI9IjI0LjYxMzMiIGdyYWRpZW50VW5pdHM9InVzZXJTcGFjZU9uVXNlIj4NCjxzdG9wIHN0b3AtY29sb3I9IndoaXRlIiBzdG9wLW9wYWNpdHk9IjAuNCIvPg0KPHN0b3Agb2Zmc2V0PSIxIiBzdG9wLWNvbG9yPSJ3aGl0ZSIgc3RvcC1vcGFjaXR5PSIwIi8+DQo8L2xpbmVhckdyYWRpZW50Pg0KPC9kZWZzPg0KPC9zdmc+DQo=)');
+                prev.removeClass("can-up");
+                prev.addClass("can-down");
+                counterNow++;
+            }
+            else {
+                cell.css('margin-top', '0px');
+                prev.css('margin-bottom', '0px');
+                cell.removeClass("can-up");
+            }
+
+        }
+        let abacusCellsClasses = cell.attr("class").split(' ');
+        if (abacusCellsClasses[0] != "top-cell" && abacusCellsClasses.includes("can-up") == true) {
+            let cellPrev = cell;
+            let cellFirst = cell;
+            cell.removeClass("can-up");
+            cell.addClass("can-down");
+            cell.css('background-image', 'url(data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTQzIiBoZWlnaHQ9IjQ4IiB2aWV3Qm94PSIwIDAgMTQzIDQ4IiBmaWxsPSJub25lIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPg0KPHBhdGggZmlsbC1ydWxlPSJldmVub2RkIiBjbGlwLXJ1bGU9ImV2ZW5vZGQiIGQ9Ik0zLjM0MDk4IDMxLjM1MjdMMzMuNTAyMyA0NS45Njg1QzM0LjYzNTYgNDYuNzgyMSAzNS45NzIyIDQ3LjIxNzkgMzcuMzM3OSA0Ny4yMTc5TDEwOS4zNzEgNDcuMjE3OUMxMTAuNzY1IDQ3LjIxNzkgMTEyLjEwMiA0Ni43ODIxIDExMy4yMDYgNDUuOTY4NUwxMzguOTggMjkuMDU3MkMxNDIuNTI1IDI2Ljc2MTcgMTQzLjMwOSAyMS4yNDA4IDEzOS4zMjkgMTguMzM1MUwxMDkuMDUxIDEuMjQ5NDdDMTA3Ljk0NyAwLjQzNTg2NSAxMDYuNjEgNS44NDAwNmUtMDYgMTA1LjIxNSA1LjcxODEzZS0wNkwzOS44MDc4IDBDMzguNDQyMSAtMS4xOTM5MmUtMDcgMzcuMTYzNiAwLjUyMzAzIDM2LjAwMTMgMS4yNDk0NkwzLjY4OTY4IDIwLjY1OTdDMC4xNDQ3IDIyLjkyNjEgLTAuNjM5ODUzIDI4LjQ0NyAzLjM0MDk4IDMxLjM1MjdaIiBmaWxsPSIjM0E5Qzc0Ii8+DQo8cGF0aCBmaWxsLXJ1bGU9ImV2ZW5vZGQiIGNsaXAtcnVsZT0iZXZlbm9kZCIgZD0iTTE0Mi4wMDIgMjMuNDc4M0MxNDIuMDAyIDIxLjU4OTUgMTQxLjE4OCAxOS43MDA4IDEzOS4zMjkgMTguMzM1MUwxMDkuMDUxIDEuMjQ5NDdDMTA3Ljk0NyAwLjQzNTg2NSAxMDYuNjEgNS44NDAwNmUtMDYgMTA1LjIxNSA1LjcxODEzZS0wNkwzOS44MDc4IDBDMzguNDQyMSAtMS4xOTM5MmUtMDcgMzcuMTYzNiAwLjUyMzAzIDM2LjAwMTMgMS4yNDk0NkwzLjY4OTY4IDIwLjY1OTdDMS44MDA5NiAyMS44NTEgMC42OTcwMjYgMjMuOTcyMiAwLjY2Nzk2OSAyNi4xNTE1TDE0Mi4wMDIgMjMuNDc4M1oiIGZpbGw9InVybCgjcGFpbnQwX2xpbmVhcl8zNDBfMjUpIi8+DQo8ZGVmcz4NCjxsaW5lYXJHcmFkaWVudCBpZD0icGFpbnQwX2xpbmVhcl8zNDBfMjUiIHgxPSIyMiIgeTE9IjEyLjYxMzMiIHgyPSIxMjUuNSIgeTI9IjI0LjYxMzMiIGdyYWRpZW50VW5pdHM9InVzZXJTcGFjZU9uVXNlIj4NCjxzdG9wIHN0b3AtY29sb3I9IndoaXRlIiBzdG9wLW9wYWNpdHk9IjAuNCIvPg0KPHN0b3Agb2Zmc2V0PSIxIiBzdG9wLWNvbG9yPSJ3aGl0ZSIgc3RvcC1vcGFjaXR5PSIwIi8+DQo8L2xpbmVhckdyYWRpZW50Pg0KPC9kZWZzPg0KPC9zdmc+DQo=)');
+            cell.css('margin-top', '0px');
+            for (var i = 4; i > 0; i--) {
+                cellPrev = cellPrev.prev();
+                checkPrev(cellPrev);
+            }
+            cellFirst.css('margin-bottom', '20px');
+            counterNow++;
+
+        }
+        else if (abacusCellsClasses[0] != "top-cell" && abacusCellsClasses.includes("can-down") == true) {
+            let id = cell.prop("id");
+            let cellNext = cell;
+            cell.removeClass("can-down");
+            cell.addClass("can-up");
+            cell.css('background-image', 'url(data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTQzIiBoZWlnaHQ9IjQ4IiB2aWV3Qm94PSIwIDAgMTQzIDQ4IiBmaWxsPSJub25lIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPg0KPHBhdGggZmlsbC1ydWxlPSJldmVub2RkIiBjbGlwLXJ1bGU9ImV2ZW5vZGQiIGQ9Ik0zLjM0MDk4IDMxLjM1MjdMMzMuNTAyMyA0NS45Njg1QzM0LjYzNTYgNDYuNzgyMSAzNS45NzIyIDQ3LjIxNzkgMzcuMzM3OSA0Ny4yMTc5TDEwOS4zNzEgNDcuMjE3OUMxMTAuNzY1IDQ3LjIxNzkgMTEyLjEwMiA0Ni43ODIxIDExMy4yMDYgNDUuOTY4NUwxMzguOTggMjkuMDU3MkMxNDIuNTI1IDI2Ljc2MTcgMTQzLjMwOSAyMS4yNDA4IDEzOS4zMjkgMTguMzM1MUwxMDkuMDUxIDEuMjQ5NDdDMTA3Ljk0NyAwLjQzNTg2NSAxMDYuNjEgNS44NDAwNmUtMDYgMTA1LjIxNSA1LjcxODEzZS0wNkwzOS44MDc4IDBDMzguNDQyMSAtMS4xOTM5MmUtMDcgMzcuMTYzNiAwLjUyMzAzIDM2LjAwMTMgMS4yNDk0NkwzLjY4OTY4IDIwLjY1OTdDMC4xNDQ3IDIyLjkyNjEgLTAuNjM5ODUzIDI4LjQ0NyAzLjM0MDk4IDMxLjM1MjdaIiBmaWxsPSIjQUZBRkFGIi8+DQo8cGF0aCBmaWxsLXJ1bGU9ImV2ZW5vZGQiIGNsaXAtcnVsZT0iZXZlbm9kZCIgZD0iTTE0Mi4wMDIgMjMuNDc4M0MxNDIuMDAyIDIxLjU4OTUgMTQxLjE4OCAxOS43MDA4IDEzOS4zMjkgMTguMzM1MUwxMDkuMDUxIDEuMjQ5NDdDMTA3Ljk0NyAwLjQzNTg2NSAxMDYuNjEgNS44NDAwNmUtMDYgMTA1LjIxNSA1LjcxODEzZS0wNkwzOS44MDc4IDBDMzguNDQyMSAtMS4xOTM5MmUtMDcgMzcuMTYzNiAwLjUyMzAzIDM2LjAwMTMgMS4yNDk0NkwzLjY4OTY4IDIwLjY1OTdDMS44MDA5NiAyMS44NTEgMC42OTcwMjYgMjMuOTcyMiAwLjY2Nzk2OSAyNi4xNTE1TDE0Mi4wMDIgMjMuNDc4M1oiIGZpbGw9InVybCgjcGFpbnQwX2xpbmVhcl8zNDBfMjUpIi8+DQo8ZGVmcz4NCjxsaW5lYXJHcmFkaWVudCBpZD0icGFpbnQwX2xpbmVhcl8zNDBfMjUiIHgxPSIyMiIgeTE9IjEyLjYxMzMiIHgyPSIxMjUuNSIgeTI9IjI0LjYxMzMiIGdyYWRpZW50VW5pdHM9InVzZXJTcGFjZU9uVXNlIj4NCjxzdG9wIHN0b3AtY29sb3I9IndoaXRlIiBzdG9wLW9wYWNpdHk9IjAuNCIvPg0KPHN0b3Agb2Zmc2V0PSIxIiBzdG9wLWNvbG9yPSJ3aGl0ZSIgc3RvcC1vcGFjaXR5PSIwIi8+DQo8L2xpbmVhckdyYWRpZW50Pg0KPC9kZWZzPg0KPC9zdmc+DQo=)');
+            cell.css('margin-top', '20px');
+            cell.css('margin-bottom', '0px');
+            for (var i = 0; i < 4 - id; i++) {
+                cellNext = cellNext.next();
+                checkNext(cellNext);
+            }
+            counterNow--;
+        }
+        if (abacusCellsClasses[0] == "top-cell" && abacusCellsClasses[2] == "can-down") {
+            counterNow = Number(counterNow + 5);
+            cell.removeClass("can-down");
+            cell.addClass("can-up");
+            cell.css('background-image', 'url(data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTQzIiBoZWlnaHQ9IjQ4IiB2aWV3Qm94PSIwIDAgMTQzIDQ4IiBmaWxsPSJub25lIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPg0KPHBhdGggZmlsbC1ydWxlPSJldmVub2RkIiBjbGlwLXJ1bGU9ImV2ZW5vZGQiIGQ9Ik0zLjM0MDk4IDMxLjM1MjdMMzMuNTAyMyA0NS45Njg1QzM0LjYzNTYgNDYuNzgyMSAzNS45NzIyIDQ3LjIxNzkgMzcuMzM3OSA0Ny4yMTc5TDEwOS4zNzEgNDcuMjE3OUMxMTAuNzY1IDQ3LjIxNzkgMTEyLjEwMiA0Ni43ODIxIDExMy4yMDYgNDUuOTY4NUwxMzguOTggMjkuMDU3MkMxNDIuNTI1IDI2Ljc2MTcgMTQzLjMwOSAyMS4yNDA4IDEzOS4zMjkgMTguMzM1MUwxMDkuMDUxIDEuMjQ5NDdDMTA3Ljk0NyAwLjQzNTg2NSAxMDYuNjEgNS44NDAwNmUtMDYgMTA1LjIxNSA1LjcxODEzZS0wNkwzOS44MDc4IDBDMzguNDQyMSAtMS4xOTM5MmUtMDcgMzcuMTYzNiAwLjUyMzAzIDM2LjAwMTMgMS4yNDk0NkwzLjY4OTY4IDIwLjY1OTdDMC4xNDQ3IDIyLjkyNjEgLTAuNjM5ODUzIDI4LjQ0NyAzLjM0MDk4IDMxLjM1MjdaIiBmaWxsPSIjM0E5Qzc0Ii8+DQo8cGF0aCBmaWxsLXJ1bGU9ImV2ZW5vZGQiIGNsaXAtcnVsZT0iZXZlbm9kZCIgZD0iTTE0Mi4wMDIgMjMuNDc4M0MxNDIuMDAyIDIxLjU4OTUgMTQxLjE4OCAxOS43MDA4IDEzOS4zMjkgMTguMzM1MUwxMDkuMDUxIDEuMjQ5NDdDMTA3Ljk0NyAwLjQzNTg2NSAxMDYuNjEgNS44NDAwNmUtMDYgMTA1LjIxNSA1LjcxODEzZS0wNkwzOS44MDc4IDBDMzguNDQyMSAtMS4xOTM5MmUtMDcgMzcuMTYzNiAwLjUyMzAzIDM2LjAwMTMgMS4yNDk0NkwzLjY4OTY4IDIwLjY1OTdDMS44MDA5NiAyMS44NTEgMC42OTcwMjYgMjMuOTcyMiAwLjY2Nzk2OSAyNi4xNTE1TDE0Mi4wMDIgMjMuNDc4M1oiIGZpbGw9InVybCgjcGFpbnQwX2xpbmVhcl8zNDBfMjUpIi8+DQo8ZGVmcz4NCjxsaW5lYXJHcmFkaWVudCBpZD0icGFpbnQwX2xpbmVhcl8zNDBfMjUiIHgxPSIyMiIgeTE9IjEyLjYxMzMiIHgyPSIxMjUuNSIgeTI9IjI0LjYxMzMiIGdyYWRpZW50VW5pdHM9InVzZXJTcGFjZU9uVXNlIj4NCjxzdG9wIHN0b3AtY29sb3I9IndoaXRlIiBzdG9wLW9wYWNpdHk9IjAuNCIvPg0KPHN0b3Agb2Zmc2V0PSIxIiBzdG9wLWNvbG9yPSJ3aGl0ZSIgc3RvcC1vcGFjaXR5PSIwIi8+DQo8L2xpbmVhckdyYWRpZW50Pg0KPC9kZWZzPg0KPC9zdmc+DQo=)');
+            cell.css('margin-top', '20px');
+            cell.css('margin-bottom', '0px');
+        }
+        else if (abacusCellsClasses[0] == "top-cell" && abacusCellsClasses[2] == "can-up") {
+            counterNow = Number(counterNow - 5);
+            cell.removeClass("can-up");
+            cell.addClass("can-down");
+            cell.css('background-image', 'url(data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTQzIiBoZWlnaHQ9IjQ4IiB2aWV3Qm94PSIwIDAgMTQzIDQ4IiBmaWxsPSJub25lIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPg0KPHBhdGggZmlsbC1ydWxlPSJldmVub2RkIiBjbGlwLXJ1bGU9ImV2ZW5vZGQiIGQ9Ik0zLjM0MDk4IDMxLjM1MjdMMzMuNTAyMyA0NS45Njg1QzM0LjYzNTYgNDYuNzgyMSAzNS45NzIyIDQ3LjIxNzkgMzcuMzM3OSA0Ny4yMTc5TDEwOS4zNzEgNDcuMjE3OUMxMTAuNzY1IDQ3LjIxNzkgMTEyLjEwMiA0Ni43ODIxIDExMy4yMDYgNDUuOTY4NUwxMzguOTggMjkuMDU3MkMxNDIuNTI1IDI2Ljc2MTcgMTQzLjMwOSAyMS4yNDA4IDEzOS4zMjkgMTguMzM1MUwxMDkuMDUxIDEuMjQ5NDdDMTA3Ljk0NyAwLjQzNTg2NSAxMDYuNjEgNS44NDAwNmUtMDYgMTA1LjIxNSA1LjcxODEzZS0wNkwzOS44MDc4IDBDMzguNDQyMSAtMS4xOTM5MmUtMDcgMzcuMTYzNiAwLjUyMzAzIDM2LjAwMTMgMS4yNDk0NkwzLjY4OTY4IDIwLjY1OTdDMC4xNDQ3IDIyLjkyNjEgLTAuNjM5ODUzIDI4LjQ0NyAzLjM0MDk4IDMxLjM1MjdaIiBmaWxsPSIjQUZBRkFGIi8+DQo8cGF0aCBmaWxsLXJ1bGU9ImV2ZW5vZGQiIGNsaXAtcnVsZT0iZXZlbm9kZCIgZD0iTTE0Mi4wMDIgMjMuNDc4M0MxNDIuMDAyIDIxLjU4OTUgMTQxLjE4OCAxOS43MDA4IDEzOS4zMjkgMTguMzM1MUwxMDkuMDUxIDEuMjQ5NDdDMTA3Ljk0NyAwLjQzNTg2NSAxMDYuNjEgNS44NDAwNmUtMDYgMTA1LjIxNSA1LjcxODEzZS0wNkwzOS44MDc4IDBDMzguNDQyMSAtMS4xOTM5MmUtMDcgMzcuMTYzNiAwLjUyMzAzIDM2LjAwMTMgMS4yNDk0NkwzLjY4OTY4IDIwLjY1OTdDMS44MDA5NiAyMS44NTEgMC42OTcwMjYgMjMuOTcyMiAwLjY2Nzk2OSAyNi4xNTE1TDE0Mi4wMDIgMjMuNDc4M1oiIGZpbGw9InVybCgjcGFpbnQwX2xpbmVhcl8zNDBfMjUpIi8+DQo8ZGVmcz4NCjxsaW5lYXJHcmFkaWVudCBpZD0icGFpbnQwX2xpbmVhcl8zNDBfMjUiIHgxPSIyMiIgeTE9IjEyLjYxMzMiIHgyPSIxMjUuNSIgeTI9IjI0LjYxMzMiIGdyYWRpZW50VW5pdHM9InVzZXJTcGFjZU9uVXNlIj4NCjxzdG9wIHN0b3AtY29sb3I9IndoaXRlIiBzdG9wLW9wYWNpdHk9IjAuNCIvPg0KPHN0b3Agb2Zmc2V0PSIxIiBzdG9wLWNvbG9yPSJ3aGl0ZSIgc3RvcC1vcGFjaXR5PSIwIi8+DQo8L2xpbmVhckdyYWRpZW50Pg0KPC9kZWZzPg0KPC9zdmc+DQo=)');
+            cell.css('margin-top', '0px');
+            cell.css('margin-bottom', '20px');
+        }
+        countOfSelected[idInCounterNow - 1] = counterNow;
+        $(column).html(counterNow);
+    }
+
+    function fillAbacus(count) {
+        let height = "20px !important";
+        let width = "58.334px";
+        if (counter == 7) {
+            height = "40px !important";
+            width = "14.28%";
+        }
+        if (counter == 15) {
+            height = "30px !important";
+            width = "6.66%";
+        }
+        if (counter == 17) {
+            height = "20px !important";
+            width = "5.88%";
+        }
+        let content = '<div>';
+        if (isResultsShow == true) {
+            for (var i = 0; i < count; i++) {
+                content += `<span style="display:inline-block; font-family: MU; width:${width}; font-size:24px; margin-bottom:3px;" id="counter-${i + 1}">0</span>`;
+            }
+        }
+        content += '</div>';
+        content += ' <sk-abacus value="$ctrl.answerValue" on-change="$ctrl.onAbacusChange(value)" size="$ctrl.settings.size" show-number="$ctrl.settings.showNumber" class="ng-isolate-scope">';
+        content += '<div class="abacus-table-wrapper"><table class="table abacus abacus-default abacus-table"> <tbody>';
+
+        for (var i = 0; i < count; i++) {
+            content += `<td id="${i + 1}"class="abacus_cell earth ng-scope down">`;
+            content += `<div class="top-cell abacus_cell-content can-down" style="height:${height}; margin-bottom: 20px; top: 0px; transform: none">&nbsp;</div>`;
+        }
+
+        content += ' <tr class="abacus_rod abacus_rod-pointer text-center"><td colspan=' + count + '></td></tr>';
+        content += '</tr>';
+        for (var i = 0; i < count; i++) {
+            content += `<td id="${i + 1}"class="abacus_cell earth ng-scope down">`;
+            content += `<div id="${1}" class="abacus_cell-content can-up" style="height:${height};margin-top: 20px; top: 0px; transform: none">&nbsp;</div>`;
+            for (var j = 0; j < 3; j++) {
+                content += `<div id="${Number(j + 2)}" class="abacus_cell-content can-up" style="height:${height};top: 0px; transform: none">&nbsp;</div>`;
+            }
+            content += '</td>';
+        }
+        content += '</tbody></table></div></sk-abacus>';
+        content += '<button id="restore" class="btn ng-scope blue-button"><img class="blue-but-bg" src="/Content/NewDesign/img/blue-button-bg.svg" alt="blue-but"><p class="button-text">Сбросить</p></button>'
+        return content;
+    }
+
+    $(document).on('click', '.onmain', function () {
+        location.href = '/';
+    });
+
+    $(document).on('click', '#b-back', function () {
+        $('#b-back').addClass('onmain');
+    });
+
+    function showAbacus() {
+        let $sizeInfo = $(".btn-info").text().trim();
+        let baseAbacus;
+        $("#start-block").hide();
+        $("#game-block").show();
+        $('#b-back').removeClass('onmain');
+        isResultsNeedToShow();
+        switch ($sizeInfo) {
+            case "7": {
+                counter = 7;
+                $selectedSize = $("#size-7");
+                baseAbacus = fillAbacus(7);
+                $selectedSize.append(baseAbacus);
+                break;
+            }
+            case "15": {
+                counter = 15;
+                $selectedSize = $("#size-15");
+                baseAbacus = fillAbacus(15);
+                $selectedSize.append(baseAbacus);
+
+                break;
+            }
+            case "17": {
+                counter = 17;
+                $selectedSize = $("#size-17");
+                baseAbacus = fillAbacus(17);
+                $selectedSize.append(baseAbacus);
+                break;
+            }
+            default:
+                break;
+
+        }
+        for (var i = 0; i < counter; i++) {
+            countOfSelected.push(0);
+        }
+        function restore() {
+            $selectedSize.html(baseAbacus);
+            $abacusCells = $(".abacus_cell-content");
+            countOfSelected = [];
+            for (var i = 0; i < counter; i++) {
+                countOfSelected.push(0);
+            }
+            $abacusCells.on('click', moveAbacus);
+            $("#restore").on('click', restore);
+        }
+        let $abacusCells = $(".abacus_cell-content");
+        $abacusCells.on('click', moveAbacus);
+        $("#restore").on('click', restore);
+        $selectedSize.show();
+        $("#b-back").show();
+
+    }
+    function backOnMainPage() {
+        countOfSelected = [];
+        $("#start-block").show();
+        $selectedSize.hide();
+        $selectedSize.empty();
+        $("#game-block").hide();
+        /*$("#b-back").hide();*/
+    }
+
+    function StartGame_EnterEvent(event) {
+        if (event.which == 13) {
+        }
+    }
+
+    $buttonsSize.on('click', changeSelectedButton);
+    $("#b-start").on('click', showAbacus);
+    $("#b-start").on('keypress', StartGame_EnterEvent);
+    $("#b-back").on('click', backOnMainPage);
+
+</script>
+
+        </div>
+        <footer class="main-footer">
+            <div class="footer">
+                <span class="footer-text">“МегаУмка” 2023</span>
+            </div>
+        </footer>
+    </section>
+
+
+<script>
+    function MenuNavBar_Click(event) {
+        $("[name='usermenu']").addClass("open");
+        event.stopPropagation();
+        $("body").on("click.MenuNavBar", MenuNavBar_OutsideClick);
+        $("#usermenublock").off("click");
+        $("#usermenuUlBlock").on("click", StopPropagationBlock);
+        console.log("MenuNavBar_Click");
+    }
+
+    function StopPropagationBlock(event) {
+        event.stopPropagation();
+    }
+
+    function MenuNavBar_OutsideClick() {
+        $("[name='usermenu']").removeClass("open");
+        $("body").off("click.MenuNavBar");
+        $("#usermenublock").on("click", MenuNavBar_Click);
+        $("#usermenuUlBlock").off("click");
+        console.log("MenuNavBar_OutsideClick");
+    }
+
+    $("#usermenublock").on("click", MenuNavBar_Click);
+</script>
+</body></html>
