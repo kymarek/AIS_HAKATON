@@ -156,7 +156,7 @@ const canvas = document.getElementById("gameCrossword");
     const ctx = canvas.getContext("2d");
     ctx.font = "15px serif";
     
-    let needDecision = 19
+    let needDecision = 15
     let decision = 0
 
     let ChoosenValue
@@ -314,27 +314,14 @@ const canvas = document.getElementById("gameCrossword");
 
     function checkVictory(x, y)
     {
-        
         checkHorizontalDecision(x, y)
         checkVerticalDecision(x, y)
-
-        decision = 0
-
-        for (let i = 0; i < template1.length; i++) {
-            for (let j = 0; j < template1.length; j++) {
-                if (template1[i][j] == '+' || template1[i][j] == '-' || template1[i][j] == '*' || template1[i][j] == '*')
-                {
-                    decision+=1
-                }
-            }
-        }
-
-        if (decision == 0)
+        if(needDecision == decision)
         {
-            alert('Ты победил!')
+            alert('You win!')
         }
 
-        console.log('Примеров не решено ' + decision)
+        console.log('Примеров решено ' + decision)
         
     }
 
@@ -415,28 +402,28 @@ const canvas = document.getElementById("gameCrossword");
                     if (template1[y][x] - template1[y][x+2] == template1[y][x+4])
                     {
                         decision+=1
-                        template1[y][x+1] = 'done'
+                        template1[y][x] = 'done'
                     }
                     break
                 case '+':  
                     if (template1[y][x] + template1[y][x+2] == template1[y][x+4])
                     {
                         decision+=1
-                        template1[y][x+1] = 'done'
+                        template1[y][x] = 'done'
                     }
                     break
                 case '/':  
                     if (template1[y][x] / template1[y][x+2] == template1[y][x+4])
                     {
                         decision+=1
-                        template1[y][x+1] = 'done'
+                        template1[y][x] = 'done'
                     }
                     break
                 case '*':  
                     if (template1[y][x] * template1[y][x+2] == template1[y][x+4])
                     {
                         decision+=1
-                        template1[y][x+1] = 'done'
+                        template1[y][x] = 'done'
                     }
                     break
             }
@@ -449,28 +436,28 @@ const canvas = document.getElementById("gameCrossword");
                     if (template1[y][x-4] - template1[y][x-2] == template1[y][x])
                     {
                         decision+=1
-                        template1[y][x-3] = 'done'
+                        template1[y][x] = 'done'
                     }
                     break
                 case '+':  
                     if (template1[y][x-4] + template1[y][x-2] == template1[y][x])
                     {
                         decision+=1
-                        template1[y][x-3] = 'done'
+                        template1[y][x] = 'done'
                     }
                     break
                 case '/':  
                     if (template1[y][x-4] / template1[y][x-2] == template1[y][x])
                     {
                         decision+=1
-                        template1[y][x-3] = 'done'
+                        template1[y][x] = 'done'
                     }
                     break
                 case '*':  
                     if (template1[y][x-4] * template1[y][x-2] == template1[y][x])
                     {
                         decision+=1
-                        template1[y][x-3] = 'done'
+                        template1[y][x] = 'done'
                     }
                     break
             }
@@ -562,28 +549,28 @@ const canvas = document.getElementById("gameCrossword");
                         if (template1[y][x] - template1[y+2][x] == template1[y+4][x])
                         {
                             decision+=1
-                            template1[y+1][x] = 'done'
+                            template1[y][x] = 'done'
                         }
                         break
                     case '+':  
                         if (template1[y][x] + template1[y+2][x] == template1[y+4][x])
                         {
                             decision+=1
-                            template1[y+1][x] = 'done'
+                            template1[y][x] = 'done'
                         }
                         break
                     case '/':  
                         if (template1[y][x] / template1[y+2][x] == template1[y+4][x])
                         {
                             decision+=1
-                            template1[y+1][x] = 'done'
+                            template1[y][x] = 'done'
                         }
                         break
                     case '*':  
                         if (template1[y][x] * template1[y+2][x] == template1[y+4][x])
                         {
                             decision+=1
-                            template1[y+1][x] = 'done'
+                            template1[y][x] = 'done'
                         }
                         break
                 }
@@ -599,28 +586,28 @@ const canvas = document.getElementById("gameCrossword");
                         if (template1[y-4][x] - template1[y-2][x] == template1[y][x])
                         {
                             decision+=1
-                            template1[y-3][x] = 'done'
+                            template1[y][x] = 'done'
                         }
                         break
                     case '+':  
                         if (template1[y-4][x] + template1[y-2][x] == template1[y][x])
                         {
                             decision+=1
-                            template1[y-3][x] = 'done'
+                            template1[y][x] = 'done'
                         }
                         break
                     case '/':  
                         if (template1[y-4][x] / template1[y-2][x] == template1[y][x])
                         {
                             decision+=1
-                            template1[y-3][x] = 'done'
+                            template1[y][x] = 'done'
                         }
                         break
                     case '*':  
                         if (template1[y-4][x] * template1[y-2][x] == template1[y][x])
                         {
                             decision+=1
-                            template1[y-3][x] = 'done'
+                            template1[y][x] = 'done'
                         }
                         break
                 }
