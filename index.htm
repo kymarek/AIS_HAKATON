@@ -1,116 +1,12 @@
 
 <!-- saved from url=(0036)https://umka.aisgorod.ru/Home/Abacus -->
 <html style="min-height: 100vh;"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <script src="./Умка _ Абакус_files/jquery"></script>
-
-    <link href="./Умка _ Абакус_files/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
-    <script src="./Умка _ Абакус_files/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
     <script src="./Умка _ Абакус_files/site.js"></script>
-    <script type="text/javascript" src="./Умка _ Абакус_files/jquery.js"></script>
-    
-    <link rel="stylesheet" type="text/css" href="./Умка _ Абакус_files/Home.css">
-    <link rel="stylesheet" type="text/css" href="./Умка _ Абакус_files/style.min.css">
-    
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
-    <meta name="msapplication-TileColor" content="#ffffff">
-    <meta name="theme-color" content="#ffffff">
-
-    <!--<base href="/teacher/">-->
-    <!--<base href=".">--><base href=".">
-    <title>Умка | Абакус</title>
+   
+    <title>Математический кроссворд</title>
 </head>
-<body onload="Draw()">
-    <section class="bg-wrapper">
-        <div class="header-wrapper">
-            <div class="header">
-                <input id="toggle" type="checkbox">
-                <label for="toggle" class="hamburger">
-                    <div class="top-bun"></div>
-                    <div class="meat"></div>
-                    <div class="bottom-bun"></div>
-                </label>
-                <div class="nav">
-                    <div class="nav-wrapper">
-                        <nav>
-                            <a href="https://umka.aisgorod.ru/" class="nav-item   ">Тренажёры</a><br>
-                            <a href="https://umka.aisgorod.ru/Home/LogOut" class="nav-item">Выйти</a><br>
-                        </nav>
-                    </div>
-                </div>
 
-                <div class="menu-logo">
-                    <a class="header-logo" aria-label="МегаУмка" href="https://umka.aisgorod.ru/">
-                        <img src="./Умка _ Абакус_files/logo.svg" alt="Логотип МегаУмка">
-                    </a>
-                </div>
-                <div class="user-label">
-                    <img src="./Умка _ Абакус_files/user-face.svg" alt="Пользователь">
-                    <span class="user-name">Потом придумаем </span>
-                </div>
-            </div>
-        </div>
-        <div class="content-box">
-            
-
-<style>
-    .table > thead > tr > th, .table > tbody > tr > th, .table > tfoot > tr > th, .table > thead > tr > td, .table > tbody > tr > td, .table > tfoot > tr > td {
-        padding: 8px;
-        line-height: 1.42857143;
-        vertical-align: top;
-        border-top: 1px solid #ddd;
-    }
-
-    .abacus .abacus_cell .abacus_cell-content {
-        -webkit-transition: transform .3s ease 0s;
-        -moz-transition: transform .3s ease 0s;
-        -o-transition: transform .3s ease 0s;
-        -ms-transition: transform .3s ease 0s;
-        transition: transform .3s ease 0s;
-        background: transparent;
-        background-repeat: no-repeat;
-        background-position: 50%;
-        background-size: 100% 100%;
-        -webkit-background-size: 100% 100%;
-        -moz-background-size: 100% 100%;
-        -o-background-size: 100% 100%;
-        position: relative;
-        width: 100%;
-        height: 30px;
-    }
-
-    .abacus .abacus_cell {
-        padding: 0;
-        position: relative;
-    }
-
-        .abacus .abacus_cell.down .abacus_cell-content {
-            background-image: url(data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTQzIiBoZWlnaHQ9IjQ4IiB2aWV3Qm94PSIwIDAgMTQzIDQ4IiBmaWxsPSJub25lIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPg0KPHBhdGggZmlsbC1ydWxlPSJldmVub2RkIiBjbGlwLXJ1bGU9ImV2ZW5vZGQiIGQ9Ik0zLjM0MDk4IDMxLjM1MjdMMzMuNTAyMyA0NS45Njg1QzM0LjYzNTYgNDYuNzgyMSAzNS45NzIyIDQ3LjIxNzkgMzcuMzM3OSA0Ny4yMTc5TDEwOS4zNzEgNDcuMjE3OUMxMTAuNzY1IDQ3LjIxNzkgMTEyLjEwMiA0Ni43ODIxIDExMy4yMDYgNDUuOTY4NUwxMzguOTggMjkuMDU3MkMxNDIuNTI1IDI2Ljc2MTcgMTQzLjMwOSAyMS4yNDA4IDEzOS4zMjkgMTguMzM1MUwxMDkuMDUxIDEuMjQ5NDdDMTA3Ljk0NyAwLjQzNTg2NSAxMDYuNjEgNS44NDAwNmUtMDYgMTA1LjIxNSA1LjcxODEzZS0wNkwzOS44MDc4IDBDMzguNDQyMSAtMS4xOTM5MmUtMDcgMzcuMTYzNiAwLjUyMzAzIDM2LjAwMTMgMS4yNDk0NkwzLjY4OTY4IDIwLjY1OTdDMC4xNDQ3IDIyLjkyNjEgLTAuNjM5ODUzIDI4LjQ0NyAzLjM0MDk4IDMxLjM1MjdaIiBmaWxsPSIjQUZBRkFGIi8+DQo8cGF0aCBmaWxsLXJ1bGU9ImV2ZW5vZGQiIGNsaXAtcnVsZT0iZXZlbm9kZCIgZD0iTTE0Mi4wMDIgMjMuNDc4M0MxNDIuMDAyIDIxLjU4OTUgMTQxLjE4OCAxOS43MDA4IDEzOS4zMjkgMTguMzM1MUwxMDkuMDUxIDEuMjQ5NDdDMTA3Ljk0NyAwLjQzNTg2NSAxMDYuNjEgNS44NDAwNmUtMDYgMTA1LjIxNSA1LjcxODEzZS0wNkwzOS44MDc4IDBDMzguNDQyMSAtMS4xOTM5MmUtMDcgMzcuMTYzNiAwLjUyMzAzIDM2LjAwMTMgMS4yNDk0NkwzLjY4OTY4IDIwLjY1OTdDMS44MDA5NiAyMS44NTEgMC42OTcwMjYgMjMuOTcyMiAwLjY2Nzk2OSAyNi4xNTE1TDE0Mi4wMDIgMjMuNDc4M1oiIGZpbGw9InVybCgjcGFpbnQwX2xpbmVhcl8zNDBfMjUpIi8+DQo8ZGVmcz4NCjxsaW5lYXJHcmFkaWVudCBpZD0icGFpbnQwX2xpbmVhcl8zNDBfMjUiIHgxPSIyMiIgeTE9IjEyLjYxMzMiIHgyPSIxMjUuNSIgeTI9IjI0LjYxMzMiIGdyYWRpZW50VW5pdHM9InVzZXJTcGFjZU9uVXNlIj4NCjxzdG9wIHN0b3AtY29sb3I9IndoaXRlIiBzdG9wLW9wYWNpdHk9IjAuNCIvPg0KPHN0b3Agb2Zmc2V0PSIxIiBzdG9wLWNvbG9yPSJ3aGl0ZSIgc3RvcC1vcGFjaXR5PSIwIi8+DQo8L2xpbmVhckdyYWRpZW50Pg0KPC9kZWZzPg0KPC9zdmc+DQo=);
-        }
-
-    .table > tbody > tr {
-        position: relative;
-    }
-
-    tbody {
-        display: table-row-group;
-        vertical-align: middle;
-        border-color: inherit;
-    }
-
-    .abacus {
-        table-layout: fixed;
-        /*border: 10px solid #7acebe;*/
-        position: relative;
-    }
-
-    .abacus, .noselect {
-        -webkit-touch-callout: none;
-        -webkit-user-select: none;
-        -khtml-user-select: none;
-        -moz-user-select: none;
-        -ms-user-select: none;
-        user-select: none;
-    }
+    <style>
     .wrapper
     {
         max-width: 1200px;
@@ -126,29 +22,13 @@
     }
 
 </style>
-
-<div class="status-bar">
-    <button id="b-back" class="but-back">&lt; Назад</button>
-    <span class="heading-block" id="heading-block-center">Математический кроссворд</span>
-</div>
-<div id="start-block" style="display: block;">
-    <img class="bg-small-bear" src="./Умка _ Абакус_files/umka-bg.svg">
-    <div class="white-block" style="width: 600px;">
-        <img class="block-bg-wh" src="./Умка _ Абакус_files/bg-wh-rec.svg">
+<body onload="Draw()">
         <div class="wrapper" style="padding: 30px 10px">
             <canvas id="gameCrossword" width="400" height="530" style="border-radius: 30px;">
     
             </canvas>
         </div>
-    </div>
-</div>
-
-
-<div id="game-block" class="abacus-block-main" style="">
-
-    
-    
-</div>
+</body>
 
 <script>
 
@@ -171,7 +51,7 @@ const canvas = document.getElementById("gameCrossword");
     let resetButton = new Image()
     resetButton.src = 'resetButton.svg'
 
-    let CellSize =30;
+    let CellSize = 30;
 
     let isDragging = false
 
@@ -294,6 +174,7 @@ const canvas = document.getElementById("gameCrossword");
 
         drawVariants()
         drawButtonReset()
+        
         
         for (let i = 0; i < template1.length; i++)
         {
@@ -647,7 +528,7 @@ const canvas = document.getElementById("gameCrossword");
                     ctx.fillStyle = "White"
                     ctx.fillRect(j*CellSize, i*CellSize, CellSize, CellSize)
                     ctx.fillStyle = "#3caac6"
-                    ctx.fillText(template1[i][j], 10+j*CellSize, 20+i*CellSize)
+                    ctx.fillText(template1[i][j], getXPos(template1[i][j])+j*CellSize, 20+i*CellSize)
                 }
 
                 if (template1[i][j] == 'hidden')
@@ -1107,7 +988,7 @@ const canvas = document.getElementById("gameCrossword");
                     {
                         randomValue = Math.floor(Math.random() * 19) + 1
                     }
-                    while (template1[y][x] % randomValue != 0) 
+                    while (template1[y][x] % randomValue != 0 && randomValue != 0)  
                     template1[y+2][x] = randomValue
                     template1[y+4][x] = template1[y][x] / template1[y+2][x]
                     break
@@ -1141,7 +1022,7 @@ const canvas = document.getElementById("gameCrossword");
                     {
                         randomValue = Math.floor(Math.random() * 19) + 1
                     }
-                    while (template1[y][x] % randomValue != 0) 
+                    while (template1[y][x] % randomValue != 0 && randomValue != 0) 
                     template1[y][x+2] = randomValue
                     template1[y][x+4] = template1[y][x] / template1[y][x+2]
                     break
@@ -1267,285 +1148,5 @@ const canvas = document.getElementById("gameCrossword");
     }
 }
 
-function getOffset(el) {
-  const rect = el.getBoundingClientRect();
-  return {
-    left: rect.left + window.scrollX,
-    top: rect.top + window.scrollY
-  };
-}
-
-    let $buttonsSize = $(".btn-size");
-    let $showResultsToggle = $(".toggle");
-    let isResultsShow = false;
-    let $selectedSize;
-    let counter;
-
-    var checkVisible = setInterval(() => {
-        if ($('#start-block').is(':visible')) {
-            $('#b-start').focus();
-        }
-    }, 500);
-
-    function changeSelectedButton() {
-        $(".btn-info").removeClass("btn-info");
-        $(this).addClass("btn-info");
-    }
-    function isResultsNeedToShow() {
-        if ($("#toggleCheck").prop("checked") == true) {
-            isResultsShow = true;
-        }
-        else {
-            isResultsShow = false;
-        }
-    }
-    let countOfSelected = [];
-    function moveAbacus() {
-        let cell = $(this);
-        console.log(cell.parent());
-        let column = "#counter-" + cell.parent().prop("id");
-        let idInCounterNow = cell.parent().prop("id");
-        let counterNow = Number(countOfSelected[idInCounterNow - 1]);
-        function checkNext(next) {
-            if (next.length != 0 && next.prop("class").split(' ')[1] == "can-down") {
-                next.removeClass("can-down");
-                next.addClass("can-up");
-                next.css('margin-top', '0px');
-                next.css('margin-bottom', '0px');
-                next.css('background-image', 'url(data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTQzIiBoZWlnaHQ9IjQ4IiB2aWV3Qm94PSIwIDAgMTQzIDQ4IiBmaWxsPSJub25lIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPg0KPHBhdGggZmlsbC1ydWxlPSJldmVub2RkIiBjbGlwLXJ1bGU9ImV2ZW5vZGQiIGQ9Ik0zLjM0MDk4IDMxLjM1MjdMMzMuNTAyMyA0NS45Njg1QzM0LjYzNTYgNDYuNzgyMSAzNS45NzIyIDQ3LjIxNzkgMzcuMzM3OSA0Ny4yMTc5TDEwOS4zNzEgNDcuMjE3OUMxMTAuNzY1IDQ3LjIxNzkgMTEyLjEwMiA0Ni43ODIxIDExMy4yMDYgNDUuOTY4NUwxMzguOTggMjkuMDU3MkMxNDIuNTI1IDI2Ljc2MTcgMTQzLjMwOSAyMS4yNDA4IDEzOS4zMjkgMTguMzM1MUwxMDkuMDUxIDEuMjQ5NDdDMTA3Ljk0NyAwLjQzNTg2NSAxMDYuNjEgNS44NDAwNmUtMDYgMTA1LjIxNSA1LjcxODEzZS0wNkwzOS44MDc4IDBDMzguNDQyMSAtMS4xOTM5MmUtMDcgMzcuMTYzNiAwLjUyMzAzIDM2LjAwMTMgMS4yNDk0NkwzLjY4OTY4IDIwLjY1OTdDMC4xNDQ3IDIyLjkyNjEgLTAuNjM5ODUzIDI4LjQ0NyAzLjM0MDk4IDMxLjM1MjdaIiBmaWxsPSIjQUZBRkFGIi8+DQo8cGF0aCBmaWxsLXJ1bGU9ImV2ZW5vZGQiIGNsaXAtcnVsZT0iZXZlbm9kZCIgZD0iTTE0Mi4wMDIgMjMuNDc4M0MxNDIuMDAyIDIxLjU4OTUgMTQxLjE4OCAxOS43MDA4IDEzOS4zMjkgMTguMzM1MUwxMDkuMDUxIDEuMjQ5NDdDMTA3Ljk0NyAwLjQzNTg2NSAxMDYuNjEgNS44NDAwNmUtMDYgMTA1LjIxNSA1LjcxODEzZS0wNkwzOS44MDc4IDBDMzguNDQyMSAtMS4xOTM5MmUtMDcgMzcuMTYzNiAwLjUyMzAzIDM2LjAwMTMgMS4yNDk0NkwzLjY4OTY4IDIwLjY1OTdDMS44MDA5NiAyMS44NTEgMC42OTcwMjYgMjMuOTcyMiAwLjY2Nzk2OSAyNi4xNTE1TDE0Mi4wMDIgMjMuNDc4M1oiIGZpbGw9InVybCgjcGFpbnQwX2xpbmVhcl8zNDBfMjUpIi8+DQo8ZGVmcz4NCjxsaW5lYXJHcmFkaWVudCBpZD0icGFpbnQwX2xpbmVhcl8zNDBfMjUiIHgxPSIyMiIgeTE9IjEyLjYxMzMiIHgyPSIxMjUuNSIgeTI9IjI0LjYxMzMiIGdyYWRpZW50VW5pdHM9InVzZXJTcGFjZU9uVXNlIj4NCjxzdG9wIHN0b3AtY29sb3I9IndoaXRlIiBzdG9wLW9wYWNpdHk9IjAuNCIvPg0KPHN0b3Agb2Zmc2V0PSIxIiBzdG9wLWNvbG9yPSJ3aGl0ZSIgc3RvcC1vcGFjaXR5PSIwIi8+DQo8L2xpbmVhckdyYWRpZW50Pg0KPC9kZWZzPg0KPC9zdmc+DQo=)');
-                counterNow--;
-            }
-            else {
-                cell.css('margin-top', '20px');
-                cell.css('margin-bottom', '0px');
-                next.css('margin-top', '0px');
-            }
-
-        }
-        function checkPrev(prev) {
-            if (prev.length != 0 && prev.prop("class").split(' ')[1] == "can-up") {
-                prev.css('margin-top', '0px');
-                prev.css('background-image', 'url(data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTQzIiBoZWlnaHQ9IjQ4IiB2aWV3Qm94PSIwIDAgMTQzIDQ4IiBmaWxsPSJub25lIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPg0KPHBhdGggZmlsbC1ydWxlPSJldmVub2RkIiBjbGlwLXJ1bGU9ImV2ZW5vZGQiIGQ9Ik0zLjM0MDk4IDMxLjM1MjdMMzMuNTAyMyA0NS45Njg1QzM0LjYzNTYgNDYuNzgyMSAzNS45NzIyIDQ3LjIxNzkgMzcuMzM3OSA0Ny4yMTc5TDEwOS4zNzEgNDcuMjE3OUMxMTAuNzY1IDQ3LjIxNzkgMTEyLjEwMiA0Ni43ODIxIDExMy4yMDYgNDUuOTY4NUwxMzguOTggMjkuMDU3MkMxNDIuNTI1IDI2Ljc2MTcgMTQzLjMwOSAyMS4yNDA4IDEzOS4zMjkgMTguMzM1MUwxMDkuMDUxIDEuMjQ5NDdDMTA3Ljk0NyAwLjQzNTg2NSAxMDYuNjEgNS44NDAwNmUtMDYgMTA1LjIxNSA1LjcxODEzZS0wNkwzOS44MDc4IDBDMzguNDQyMSAtMS4xOTM5MmUtMDcgMzcuMTYzNiAwLjUyMzAzIDM2LjAwMTMgMS4yNDk0NkwzLjY4OTY4IDIwLjY1OTdDMC4xNDQ3IDIyLjkyNjEgLTAuNjM5ODUzIDI4LjQ0NyAzLjM0MDk4IDMxLjM1MjdaIiBmaWxsPSIjM0E5Qzc0Ii8+DQo8cGF0aCBmaWxsLXJ1bGU9ImV2ZW5vZGQiIGNsaXAtcnVsZT0iZXZlbm9kZCIgZD0iTTE0Mi4wMDIgMjMuNDc4M0MxNDIuMDAyIDIxLjU4OTUgMTQxLjE4OCAxOS43MDA4IDEzOS4zMjkgMTguMzM1MUwxMDkuMDUxIDEuMjQ5NDdDMTA3Ljk0NyAwLjQzNTg2NSAxMDYuNjEgNS44NDAwNmUtMDYgMTA1LjIxNSA1LjcxODEzZS0wNkwzOS44MDc4IDBDMzguNDQyMSAtMS4xOTM5MmUtMDcgMzcuMTYzNiAwLjUyMzAzIDM2LjAwMTMgMS4yNDk0NkwzLjY4OTY4IDIwLjY1OTdDMS44MDA5NiAyMS44NTEgMC42OTcwMjYgMjMuOTcyMiAwLjY2Nzk2OSAyNi4xNTE1TDE0Mi4wMDIgMjMuNDc4M1oiIGZpbGw9InVybCgjcGFpbnQwX2xpbmVhcl8zNDBfMjUpIi8+DQo8ZGVmcz4NCjxsaW5lYXJHcmFkaWVudCBpZD0icGFpbnQwX2xpbmVhcl8zNDBfMjUiIHgxPSIyMiIgeTE9IjEyLjYxMzMiIHgyPSIxMjUuNSIgeTI9IjI0LjYxMzMiIGdyYWRpZW50VW5pdHM9InVzZXJTcGFjZU9uVXNlIj4NCjxzdG9wIHN0b3AtY29sb3I9IndoaXRlIiBzdG9wLW9wYWNpdHk9IjAuNCIvPg0KPHN0b3Agb2Zmc2V0PSIxIiBzdG9wLWNvbG9yPSJ3aGl0ZSIgc3RvcC1vcGFjaXR5PSIwIi8+DQo8L2xpbmVhckdyYWRpZW50Pg0KPC9kZWZzPg0KPC9zdmc+DQo=)');
-                prev.removeClass("can-up");
-                prev.addClass("can-down");
-                counterNow++;
-            }
-            else {
-                cell.css('margin-top', '0px');
-                prev.css('margin-bottom', '0px');
-                cell.removeClass("can-up");
-            }
-
-        }
-        let abacusCellsClasses = cell.attr("class").split(' ');
-        if (abacusCellsClasses[0] != "top-cell" && abacusCellsClasses.includes("can-up") == true) {
-            let cellPrev = cell;
-            let cellFirst = cell;
-            cell.removeClass("can-up");
-            cell.addClass("can-down");
-            cell.css('background-image', 'url(data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTQzIiBoZWlnaHQ9IjQ4IiB2aWV3Qm94PSIwIDAgMTQzIDQ4IiBmaWxsPSJub25lIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPg0KPHBhdGggZmlsbC1ydWxlPSJldmVub2RkIiBjbGlwLXJ1bGU9ImV2ZW5vZGQiIGQ9Ik0zLjM0MDk4IDMxLjM1MjdMMzMuNTAyMyA0NS45Njg1QzM0LjYzNTYgNDYuNzgyMSAzNS45NzIyIDQ3LjIxNzkgMzcuMzM3OSA0Ny4yMTc5TDEwOS4zNzEgNDcuMjE3OUMxMTAuNzY1IDQ3LjIxNzkgMTEyLjEwMiA0Ni43ODIxIDExMy4yMDYgNDUuOTY4NUwxMzguOTggMjkuMDU3MkMxNDIuNTI1IDI2Ljc2MTcgMTQzLjMwOSAyMS4yNDA4IDEzOS4zMjkgMTguMzM1MUwxMDkuMDUxIDEuMjQ5NDdDMTA3Ljk0NyAwLjQzNTg2NSAxMDYuNjEgNS44NDAwNmUtMDYgMTA1LjIxNSA1LjcxODEzZS0wNkwzOS44MDc4IDBDMzguNDQyMSAtMS4xOTM5MmUtMDcgMzcuMTYzNiAwLjUyMzAzIDM2LjAwMTMgMS4yNDk0NkwzLjY4OTY4IDIwLjY1OTdDMC4xNDQ3IDIyLjkyNjEgLTAuNjM5ODUzIDI4LjQ0NyAzLjM0MDk4IDMxLjM1MjdaIiBmaWxsPSIjM0E5Qzc0Ii8+DQo8cGF0aCBmaWxsLXJ1bGU9ImV2ZW5vZGQiIGNsaXAtcnVsZT0iZXZlbm9kZCIgZD0iTTE0Mi4wMDIgMjMuNDc4M0MxNDIuMDAyIDIxLjU4OTUgMTQxLjE4OCAxOS43MDA4IDEzOS4zMjkgMTguMzM1MUwxMDkuMDUxIDEuMjQ5NDdDMTA3Ljk0NyAwLjQzNTg2NSAxMDYuNjEgNS44NDAwNmUtMDYgMTA1LjIxNSA1LjcxODEzZS0wNkwzOS44MDc4IDBDMzguNDQyMSAtMS4xOTM5MmUtMDcgMzcuMTYzNiAwLjUyMzAzIDM2LjAwMTMgMS4yNDk0NkwzLjY4OTY4IDIwLjY1OTdDMS44MDA5NiAyMS44NTEgMC42OTcwMjYgMjMuOTcyMiAwLjY2Nzk2OSAyNi4xNTE1TDE0Mi4wMDIgMjMuNDc4M1oiIGZpbGw9InVybCgjcGFpbnQwX2xpbmVhcl8zNDBfMjUpIi8+DQo8ZGVmcz4NCjxsaW5lYXJHcmFkaWVudCBpZD0icGFpbnQwX2xpbmVhcl8zNDBfMjUiIHgxPSIyMiIgeTE9IjEyLjYxMzMiIHgyPSIxMjUuNSIgeTI9IjI0LjYxMzMiIGdyYWRpZW50VW5pdHM9InVzZXJTcGFjZU9uVXNlIj4NCjxzdG9wIHN0b3AtY29sb3I9IndoaXRlIiBzdG9wLW9wYWNpdHk9IjAuNCIvPg0KPHN0b3Agb2Zmc2V0PSIxIiBzdG9wLWNvbG9yPSJ3aGl0ZSIgc3RvcC1vcGFjaXR5PSIwIi8+DQo8L2xpbmVhckdyYWRpZW50Pg0KPC9kZWZzPg0KPC9zdmc+DQo=)');
-            cell.css('margin-top', '0px');
-            for (var i = 4; i > 0; i--) {
-                cellPrev = cellPrev.prev();
-                checkPrev(cellPrev);
-            }
-            cellFirst.css('margin-bottom', '20px');
-            counterNow++;
-
-        }
-        else if (abacusCellsClasses[0] != "top-cell" && abacusCellsClasses.includes("can-down") == true) {
-            let id = cell.prop("id");
-            let cellNext = cell;
-            cell.removeClass("can-down");
-            cell.addClass("can-up");
-            cell.css('background-image', 'url(data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTQzIiBoZWlnaHQ9IjQ4IiB2aWV3Qm94PSIwIDAgMTQzIDQ4IiBmaWxsPSJub25lIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPg0KPHBhdGggZmlsbC1ydWxlPSJldmVub2RkIiBjbGlwLXJ1bGU9ImV2ZW5vZGQiIGQ9Ik0zLjM0MDk4IDMxLjM1MjdMMzMuNTAyMyA0NS45Njg1QzM0LjYzNTYgNDYuNzgyMSAzNS45NzIyIDQ3LjIxNzkgMzcuMzM3OSA0Ny4yMTc5TDEwOS4zNzEgNDcuMjE3OUMxMTAuNzY1IDQ3LjIxNzkgMTEyLjEwMiA0Ni43ODIxIDExMy4yMDYgNDUuOTY4NUwxMzguOTggMjkuMDU3MkMxNDIuNTI1IDI2Ljc2MTcgMTQzLjMwOSAyMS4yNDA4IDEzOS4zMjkgMTguMzM1MUwxMDkuMDUxIDEuMjQ5NDdDMTA3Ljk0NyAwLjQzNTg2NSAxMDYuNjEgNS44NDAwNmUtMDYgMTA1LjIxNSA1LjcxODEzZS0wNkwzOS44MDc4IDBDMzguNDQyMSAtMS4xOTM5MmUtMDcgMzcuMTYzNiAwLjUyMzAzIDM2LjAwMTMgMS4yNDk0NkwzLjY4OTY4IDIwLjY1OTdDMC4xNDQ3IDIyLjkyNjEgLTAuNjM5ODUzIDI4LjQ0NyAzLjM0MDk4IDMxLjM1MjdaIiBmaWxsPSIjQUZBRkFGIi8+DQo8cGF0aCBmaWxsLXJ1bGU9ImV2ZW5vZGQiIGNsaXAtcnVsZT0iZXZlbm9kZCIgZD0iTTE0Mi4wMDIgMjMuNDc4M0MxNDIuMDAyIDIxLjU4OTUgMTQxLjE4OCAxOS43MDA4IDEzOS4zMjkgMTguMzM1MUwxMDkuMDUxIDEuMjQ5NDdDMTA3Ljk0NyAwLjQzNTg2NSAxMDYuNjEgNS44NDAwNmUtMDYgMTA1LjIxNSA1LjcxODEzZS0wNkwzOS44MDc4IDBDMzguNDQyMSAtMS4xOTM5MmUtMDcgMzcuMTYzNiAwLjUyMzAzIDM2LjAwMTMgMS4yNDk0NkwzLjY4OTY4IDIwLjY1OTdDMS44MDA5NiAyMS44NTEgMC42OTcwMjYgMjMuOTcyMiAwLjY2Nzk2OSAyNi4xNTE1TDE0Mi4wMDIgMjMuNDc4M1oiIGZpbGw9InVybCgjcGFpbnQwX2xpbmVhcl8zNDBfMjUpIi8+DQo8ZGVmcz4NCjxsaW5lYXJHcmFkaWVudCBpZD0icGFpbnQwX2xpbmVhcl8zNDBfMjUiIHgxPSIyMiIgeTE9IjEyLjYxMzMiIHgyPSIxMjUuNSIgeTI9IjI0LjYxMzMiIGdyYWRpZW50VW5pdHM9InVzZXJTcGFjZU9uVXNlIj4NCjxzdG9wIHN0b3AtY29sb3I9IndoaXRlIiBzdG9wLW9wYWNpdHk9IjAuNCIvPg0KPHN0b3Agb2Zmc2V0PSIxIiBzdG9wLWNvbG9yPSJ3aGl0ZSIgc3RvcC1vcGFjaXR5PSIwIi8+DQo8L2xpbmVhckdyYWRpZW50Pg0KPC9kZWZzPg0KPC9zdmc+DQo=)');
-            cell.css('margin-top', '20px');
-            cell.css('margin-bottom', '0px');
-            for (var i = 0; i < 4 - id; i++) {
-                cellNext = cellNext.next();
-                checkNext(cellNext);
-            }
-            counterNow--;
-        }
-        if (abacusCellsClasses[0] == "top-cell" && abacusCellsClasses[2] == "can-down") {
-            counterNow = Number(counterNow + 5);
-            cell.removeClass("can-down");
-            cell.addClass("can-up");
-            cell.css('background-image', 'url(data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTQzIiBoZWlnaHQ9IjQ4IiB2aWV3Qm94PSIwIDAgMTQzIDQ4IiBmaWxsPSJub25lIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPg0KPHBhdGggZmlsbC1ydWxlPSJldmVub2RkIiBjbGlwLXJ1bGU9ImV2ZW5vZGQiIGQ9Ik0zLjM0MDk4IDMxLjM1MjdMMzMuNTAyMyA0NS45Njg1QzM0LjYzNTYgNDYuNzgyMSAzNS45NzIyIDQ3LjIxNzkgMzcuMzM3OSA0Ny4yMTc5TDEwOS4zNzEgNDcuMjE3OUMxMTAuNzY1IDQ3LjIxNzkgMTEyLjEwMiA0Ni43ODIxIDExMy4yMDYgNDUuOTY4NUwxMzguOTggMjkuMDU3MkMxNDIuNTI1IDI2Ljc2MTcgMTQzLjMwOSAyMS4yNDA4IDEzOS4zMjkgMTguMzM1MUwxMDkuMDUxIDEuMjQ5NDdDMTA3Ljk0NyAwLjQzNTg2NSAxMDYuNjEgNS44NDAwNmUtMDYgMTA1LjIxNSA1LjcxODEzZS0wNkwzOS44MDc4IDBDMzguNDQyMSAtMS4xOTM5MmUtMDcgMzcuMTYzNiAwLjUyMzAzIDM2LjAwMTMgMS4yNDk0NkwzLjY4OTY4IDIwLjY1OTdDMC4xNDQ3IDIyLjkyNjEgLTAuNjM5ODUzIDI4LjQ0NyAzLjM0MDk4IDMxLjM1MjdaIiBmaWxsPSIjM0E5Qzc0Ii8+DQo8cGF0aCBmaWxsLXJ1bGU9ImV2ZW5vZGQiIGNsaXAtcnVsZT0iZXZlbm9kZCIgZD0iTTE0Mi4wMDIgMjMuNDc4M0MxNDIuMDAyIDIxLjU4OTUgMTQxLjE4OCAxOS43MDA4IDEzOS4zMjkgMTguMzM1MUwxMDkuMDUxIDEuMjQ5NDdDMTA3Ljk0NyAwLjQzNTg2NSAxMDYuNjEgNS44NDAwNmUtMDYgMTA1LjIxNSA1LjcxODEzZS0wNkwzOS44MDc4IDBDMzguNDQyMSAtMS4xOTM5MmUtMDcgMzcuMTYzNiAwLjUyMzAzIDM2LjAwMTMgMS4yNDk0NkwzLjY4OTY4IDIwLjY1OTdDMS44MDA5NiAyMS44NTEgMC42OTcwMjYgMjMuOTcyMiAwLjY2Nzk2OSAyNi4xNTE1TDE0Mi4wMDIgMjMuNDc4M1oiIGZpbGw9InVybCgjcGFpbnQwX2xpbmVhcl8zNDBfMjUpIi8+DQo8ZGVmcz4NCjxsaW5lYXJHcmFkaWVudCBpZD0icGFpbnQwX2xpbmVhcl8zNDBfMjUiIHgxPSIyMiIgeTE9IjEyLjYxMzMiIHgyPSIxMjUuNSIgeTI9IjI0LjYxMzMiIGdyYWRpZW50VW5pdHM9InVzZXJTcGFjZU9uVXNlIj4NCjxzdG9wIHN0b3AtY29sb3I9IndoaXRlIiBzdG9wLW9wYWNpdHk9IjAuNCIvPg0KPHN0b3Agb2Zmc2V0PSIxIiBzdG9wLWNvbG9yPSJ3aGl0ZSIgc3RvcC1vcGFjaXR5PSIwIi8+DQo8L2xpbmVhckdyYWRpZW50Pg0KPC9kZWZzPg0KPC9zdmc+DQo=)');
-            cell.css('margin-top', '20px');
-            cell.css('margin-bottom', '0px');
-        }
-        else if (abacusCellsClasses[0] == "top-cell" && abacusCellsClasses[2] == "can-up") {
-            counterNow = Number(counterNow - 5);
-            cell.removeClass("can-up");
-            cell.addClass("can-down");
-            cell.css('background-image', 'url(data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTQzIiBoZWlnaHQ9IjQ4IiB2aWV3Qm94PSIwIDAgMTQzIDQ4IiBmaWxsPSJub25lIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPg0KPHBhdGggZmlsbC1ydWxlPSJldmVub2RkIiBjbGlwLXJ1bGU9ImV2ZW5vZGQiIGQ9Ik0zLjM0MDk4IDMxLjM1MjdMMzMuNTAyMyA0NS45Njg1QzM0LjYzNTYgNDYuNzgyMSAzNS45NzIyIDQ3LjIxNzkgMzcuMzM3OSA0Ny4yMTc5TDEwOS4zNzEgNDcuMjE3OUMxMTAuNzY1IDQ3LjIxNzkgMTEyLjEwMiA0Ni43ODIxIDExMy4yMDYgNDUuOTY4NUwxMzguOTggMjkuMDU3MkMxNDIuNTI1IDI2Ljc2MTcgMTQzLjMwOSAyMS4yNDA4IDEzOS4zMjkgMTguMzM1MUwxMDkuMDUxIDEuMjQ5NDdDMTA3Ljk0NyAwLjQzNTg2NSAxMDYuNjEgNS44NDAwNmUtMDYgMTA1LjIxNSA1LjcxODEzZS0wNkwzOS44MDc4IDBDMzguNDQyMSAtMS4xOTM5MmUtMDcgMzcuMTYzNiAwLjUyMzAzIDM2LjAwMTMgMS4yNDk0NkwzLjY4OTY4IDIwLjY1OTdDMC4xNDQ3IDIyLjkyNjEgLTAuNjM5ODUzIDI4LjQ0NyAzLjM0MDk4IDMxLjM1MjdaIiBmaWxsPSIjQUZBRkFGIi8+DQo8cGF0aCBmaWxsLXJ1bGU9ImV2ZW5vZGQiIGNsaXAtcnVsZT0iZXZlbm9kZCIgZD0iTTE0Mi4wMDIgMjMuNDc4M0MxNDIuMDAyIDIxLjU4OTUgMTQxLjE4OCAxOS43MDA4IDEzOS4zMjkgMTguMzM1MUwxMDkuMDUxIDEuMjQ5NDdDMTA3Ljk0NyAwLjQzNTg2NSAxMDYuNjEgNS44NDAwNmUtMDYgMTA1LjIxNSA1LjcxODEzZS0wNkwzOS44MDc4IDBDMzguNDQyMSAtMS4xOTM5MmUtMDcgMzcuMTYzNiAwLjUyMzAzIDM2LjAwMTMgMS4yNDk0NkwzLjY4OTY4IDIwLjY1OTdDMS44MDA5NiAyMS44NTEgMC42OTcwMjYgMjMuOTcyMiAwLjY2Nzk2OSAyNi4xNTE1TDE0Mi4wMDIgMjMuNDc4M1oiIGZpbGw9InVybCgjcGFpbnQwX2xpbmVhcl8zNDBfMjUpIi8+DQo8ZGVmcz4NCjxsaW5lYXJHcmFkaWVudCBpZD0icGFpbnQwX2xpbmVhcl8zNDBfMjUiIHgxPSIyMiIgeTE9IjEyLjYxMzMiIHgyPSIxMjUuNSIgeTI9IjI0LjYxMzMiIGdyYWRpZW50VW5pdHM9InVzZXJTcGFjZU9uVXNlIj4NCjxzdG9wIHN0b3AtY29sb3I9IndoaXRlIiBzdG9wLW9wYWNpdHk9IjAuNCIvPg0KPHN0b3Agb2Zmc2V0PSIxIiBzdG9wLWNvbG9yPSJ3aGl0ZSIgc3RvcC1vcGFjaXR5PSIwIi8+DQo8L2xpbmVhckdyYWRpZW50Pg0KPC9kZWZzPg0KPC9zdmc+DQo=)');
-            cell.css('margin-top', '0px');
-            cell.css('margin-bottom', '20px');
-        }
-        countOfSelected[idInCounterNow - 1] = counterNow;
-        $(column).html(counterNow);
-    }
-
-    function fillAbacus(count) {
-        let height = "20px !important";
-        let width = "58.334px";
-        if (counter == 7) {
-            height = "40px !important";
-            width = "14.28%";
-        }
-        if (counter == 15) {
-            height = "30px !important";
-            width = "6.66%";
-        }
-        if (counter == 17) {
-            height = "20px !important";
-            width = "5.88%";
-        }
-        let content = '<div>';
-        if (isResultsShow == true) {
-            for (var i = 0; i < count; i++) {
-                content += `<span style="display:inline-block; font-family: MU; width:${width}; font-size:24px; margin-bottom:3px;" id="counter-${i + 1}">0</span>`;
-            }
-        }
-        content += '</div>';
-        content += ' <sk-abacus value="$ctrl.answerValue" on-change="$ctrl.onAbacusChange(value)" size="$ctrl.settings.size" show-number="$ctrl.settings.showNumber" class="ng-isolate-scope">';
-        content += '<div class="abacus-table-wrapper"><table class="table abacus abacus-default abacus-table"> <tbody>';
-
-        for (var i = 0; i < count; i++) {
-            content += `<td id="${i + 1}"class="abacus_cell earth ng-scope down">`;
-            content += `<div class="top-cell abacus_cell-content can-down" style="height:${height}; margin-bottom: 20px; top: 0px; transform: none">&nbsp;</div>`;
-        }
-
-        content += ' <tr class="abacus_rod abacus_rod-pointer text-center"><td colspan=' + count + '></td></tr>';
-        content += '</tr>';
-        for (var i = 0; i < count; i++) {
-            content += `<td id="${i + 1}"class="abacus_cell earth ng-scope down">`;
-            content += `<div id="${1}" class="abacus_cell-content can-up" style="height:${height};margin-top: 20px; top: 0px; transform: none">&nbsp;</div>`;
-            for (var j = 0; j < 3; j++) {
-                content += `<div id="${Number(j + 2)}" class="abacus_cell-content can-up" style="height:${height};top: 0px; transform: none">&nbsp;</div>`;
-            }
-            content += '</td>';
-        }
-        content += '</tbody></table></div></sk-abacus>';
-        content += '<button id="restore" class="btn ng-scope blue-button"><img class="blue-but-bg" src="/Content/NewDesign/img/blue-button-bg.svg" alt="blue-but"><p class="button-text">Сбросить</p></button>'
-        return content;
-    }
-
-    $(document).on('click', '.onmain', function () {
-        location.href = '/';
-    });
-
-    $(document).on('click', '#b-back', function () {
-        $('#b-back').addClass('onmain');
-    });
-
-    function showAbacus() {
-        let $sizeInfo = $(".btn-info").text().trim();
-        let baseAbacus;
-        $("#start-block").hide();
-        $("#game-block").show();
-        $('#b-back').removeClass('onmain');
-        isResultsNeedToShow();
-        switch ($sizeInfo) {
-            case "7": {
-                counter = 7;
-                $selectedSize = $("#size-7");
-                baseAbacus = fillAbacus(7);
-                $selectedSize.append(baseAbacus);
-                break;
-            }
-            case "15": {
-                counter = 15;
-                $selectedSize = $("#size-15");
-                baseAbacus = fillAbacus(15);
-                $selectedSize.append(baseAbacus);
-
-                break;
-            }
-            case "17": {
-                counter = 17;
-                $selectedSize = $("#size-17");
-                baseAbacus = fillAbacus(17);
-                $selectedSize.append(baseAbacus);
-                break;
-            }
-            default:
-                break;
-
-        }
-        for (var i = 0; i < counter; i++) {
-            countOfSelected.push(0);
-        }
-        function restore() {
-            $selectedSize.html(baseAbacus);
-            $abacusCells = $(".abacus_cell-content");
-            countOfSelected = [];
-            for (var i = 0; i < counter; i++) {
-                countOfSelected.push(0);
-            }
-            $abacusCells.on('click', moveAbacus);
-            $("#restore").on('click', restore);
-        }
-        let $abacusCells = $(".abacus_cell-content");
-        $abacusCells.on('click', moveAbacus);
-        $("#restore").on('click', restore);
-        $selectedSize.show();
-        $("#b-back").show();
-
-    }
-    function backOnMainPage() {
-        countOfSelected = [];
-        $("#start-block").show();
-        $selectedSize.hide();
-        $selectedSize.empty();
-        $("#game-block").hide();
-        /*$("#b-back").hide();*/
-    }
-
-    function StartGame_EnterEvent(event) {
-        if (event.which == 13) {
-        }
-    }
-
-    $buttonsSize.on('click', changeSelectedButton);
-    $("#b-start").on('click', showAbacus);
-    $("#b-start").on('keypress', StartGame_EnterEvent);
-    $("#b-back").on('click', backOnMainPage);
-
 </script>
-
-        </div>
-        <footer class="main-footer">
-            <div class="footer">
-                <span class="footer-text">“МегаУмка” 2023</span>
-            </div>
-        </footer>
-    </section>
-
-
-<script>
-    function MenuNavBar_Click(event) {
-        $("[name='usermenu']").addClass("open");
-        event.stopPropagation();
-        $("body").on("click.MenuNavBar", MenuNavBar_OutsideClick);
-        $("#usermenublock").off("click");
-        $("#usermenuUlBlock").on("click", StopPropagationBlock);
-        console.log("MenuNavBar_Click");
-    }
-
-    function StopPropagationBlock(event) {
-        event.stopPropagation();
-    }
-
-    function MenuNavBar_OutsideClick() {
-        $("[name='usermenu']").removeClass("open");
-        $("body").off("click.MenuNavBar");
-        $("#usermenublock").on("click", MenuNavBar_Click);
-        $("#usermenuUlBlock").off("click");
-        console.log("MenuNavBar_OutsideClick");
-    }
-
-    $("#usermenublock").on("click", MenuNavBar_Click);
-</script>
-</body></html>
+</html>
